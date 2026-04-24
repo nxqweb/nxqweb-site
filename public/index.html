@@ -1,0 +1,1046 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NXQ Web — Modern Websites for Local Businesses</title>
+  <meta name="description" content="NXQ Web builds modern, high-converting websites for local businesses. Get found on Google when customers search for your service." />
+  <meta name="theme-color" content="#030912" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="NXQ Web — Modern Websites for Local Businesses" />
+  <meta property="og:description" content="When someone types 'tree service near me' your business needs to show up. I build modern, glass-style websites that get local businesses found on Google." />
+  <meta property="og:url" content="https://nxqweb.com" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="NXQ Web — Modern Websites for Local Businesses" />
+  <meta name="twitter:description" content="Glass-style websites for local businesses that rank on Google and look premium." />
+  <link rel="canonical" href="https://nxqweb.com" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #030912;
+      --bg-2: #080f1e;
+      --text: #eef4ff;
+      --muted: #9aafd4;
+      --line: rgba(255,255,255,0.13);
+      --line-soft: rgba(255,255,255,0.055);
+      --edge-a: rgba(120,200,255,0.9);
+      --edge-b: rgba(180,110,255,0.7);
+      --edge-c: rgba(50,255,200,0.65);
+      --radius: 26px;
+      --accent-blue: #78c8ff;
+      --accent-purple: #b46eff;
+      --accent-teal: #32ffc8;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'DM Sans', system-ui, sans-serif;
+      color: var(--text);
+      background: #030912;
+      min-height: 100vh;
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    /* BG ATMOSPHERE */
+    .scene {
+      position: fixed; inset: 0; z-index: -1; overflow: hidden;
+    }
+    .orb {
+      position: absolute; border-radius: 50%;
+      filter: blur(90px); opacity: 0.38;
+      animation: drift 18s ease-in-out infinite alternate;
+    }
+    .orb-1 { width: 500px; height: 500px; background: rgba(80,120,255,0.18); top: -10%; left: -8%; animation-delay: 0s; }
+    .orb-2 { width: 420px; height: 420px; background: rgba(160,80,255,0.14); top: 30%; right: -10%; animation-delay: -6s; }
+    .orb-3 { width: 380px; height: 380px; background: rgba(40,220,180,0.10); bottom: 10%; left: 30%; animation-delay: -12s; }
+    .orb-4 { width: 280px; height: 280px; background: rgba(80,120,255,0.10); bottom: -5%; right: 15%; animation-delay: -4s; }
+    @keyframes drift {
+      from { transform: translate(0, 0) scale(1); }
+      to { transform: translate(30px, 20px) scale(1.06); }
+    }
+    .grid-lines {
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.018) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.018) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+
+    /* GLASS CARD */
+    .glass {
+      position: relative;
+      background: rgba(255,255,255,0.007);
+      border: 1px solid var(--line-soft);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+    .glass::before {
+      content: "";
+      position: absolute; inset: 0;
+      padding: 1px;
+      border-radius: inherit;
+      background: linear-gradient(135deg, var(--edge-a) 0%, rgba(255,255,255,0.1) 35%, var(--edge-b) 65%, var(--edge-c) 100%);
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      pointer-events: none;
+    }
+    .glass::after {
+      content: "";
+      position: absolute; inset: 0;
+      border-radius: inherit;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.02), 0 0 28px rgba(120,180,255,0.07), 0 0 48px rgba(160,80,255,0.04);
+      pointer-events: none;
+    }
+
+    /* LAYOUT */
+    .wrap { width: min(1160px, calc(100% - 32px)); margin-inline: auto; }
+
+    /* HEADER */
+    .site-header {
+      position: sticky; top: 14px; z-index: 100;
+      margin-top: 14px;
+      width: min(1160px, calc(100% - 32px));
+      margin-inline: auto;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 14px 22px;
+      background: rgba(3,9,18,0.72);
+      backdrop-filter: blur(18px);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+    }
+    .brand { display: flex; align-items: center; gap: 10px; font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.1rem; letter-spacing: 0.02em; text-decoration: none; color: var(--text); }
+    .brand-mark {
+      width: 40px; height: 40px; border-radius: 12px;
+      display: grid; place-items: center;
+      background: linear-gradient(135deg, rgba(120,200,255,0.18), rgba(180,110,255,0.12));
+      border: 1px solid rgba(255,255,255,0.16);
+      font-size: 0.85rem; letter-spacing: 0.04em;
+    }
+    nav { display: flex; gap: 28px; }
+    nav a { color: var(--muted); font-size: 0.9rem; text-decoration: none; transition: color 0.2s; }
+    nav a:hover { color: var(--text); }
+    .menu-btn { display: none; background: rgba(255,255,255,0.04); border: 1px solid var(--line); color: var(--text); border-radius: 10px; width: 40px; height: 40px; font-size: 1.1rem; cursor: pointer; }
+    .mobile-nav {
+      display: none; position: fixed; top: 80px; left: 16px; right: 16px; z-index: 99;
+      background: rgba(3,9,18,0.92); backdrop-filter: blur(18px);
+      border: 1px solid var(--line); border-radius: 20px; padding: 12px;
+    }
+    .mobile-nav a { display: block; padding: 13px 12px; color: var(--muted); text-decoration: none; border-radius: 10px; }
+    .mobile-nav a:hover { color: var(--text); background: rgba(255,255,255,0.04); }
+    .mobile-nav.open { display: block; }
+
+    /* BUTTONS */
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 13px 22px; border-radius: 999px;
+      border: 1px solid var(--line); font-family: 'DM Sans', sans-serif;
+      font-size: 0.92rem; font-weight: 500; cursor: pointer;
+      text-decoration: none; transition: all 0.22s; color: var(--text);
+    }
+    .btn:hover { transform: translateY(-2px); }
+    .btn-primary {
+      background: linear-gradient(135deg, rgba(120,200,255,0.15), rgba(180,110,255,0.12));
+      border-color: rgba(120,200,255,0.35);
+      box-shadow: 0 0 20px rgba(120,200,255,0.1);
+    }
+    .btn-secondary { background: rgba(255,255,255,0.04); }
+    .btn-primary:hover { box-shadow: 0 0 30px rgba(120,200,255,0.18); }
+
+    /* EYEBROW */
+    .eyebrow {
+      display: inline-block;
+      font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--accent-blue); margin-bottom: 14px; font-weight: 500;
+    }
+
+    /* SECTION */
+    section { padding: 100px 0 0; }
+    .section-head { margin-bottom: 36px; }
+    .section-head h2 { font-family: 'Syne', sans-serif; font-size: clamp(2rem, 3.5vw, 3.2rem); font-weight: 700; line-height: 1.05; max-width: 18ch; }
+
+    /* HERO */
+    .hero {
+      padding: 110px 0 0;
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 24px;
+      align-items: start;
+    }
+    .hero-copy { padding: 50px 44px; }
+    .hero-copy h1 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(2.8rem, 5vw, 5.2rem);
+      font-weight: 800; line-height: 0.97;
+      margin-bottom: 20px;
+    }
+    .hero-copy h1 em { font-style: normal; color: var(--accent-blue); }
+    .hero-copy p { color: var(--muted); font-size: 1.05rem; line-height: 1.8; max-width: 52ch; margin-bottom: 28px; }
+    .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 36px; }
+    .hero-stats {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;
+    }
+    .stat-chip {
+      padding: 14px 16px;
+      border: 1px solid var(--line-soft);
+      border-radius: 16px;
+      background: rgba(255,255,255,0.02);
+    }
+    .stat-chip strong { display: block; font-family: 'Syne', sans-serif; font-size: 0.95rem; margin-bottom: 4px; }
+    .stat-chip span { color: var(--muted); font-size: 0.82rem; }
+
+    .hero-visual {
+      position: relative; padding: 20px;
+      min-height: 520px; display: flex; align-items: center; justify-content: center;
+    }
+    .hero-browser {
+      width: 100%; border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.12);
+      overflow: hidden;
+    }
+    .browser-bar {
+      display: flex; align-items: center; gap: 8px; padding: 10px 14px;
+      background: rgba(255,255,255,0.03); border-bottom: 1px solid rgba(255,255,255,0.07);
+    }
+    .browser-dot { width: 10px; height: 10px; border-radius: 50%; }
+    .browser-dot:nth-child(1) { background: rgba(255,90,90,0.6); }
+    .browser-dot:nth-child(2) { background: rgba(255,190,50,0.5); }
+    .browser-dot:nth-child(3) { background: rgba(50,210,100,0.5); }
+    .browser-url {
+      flex: 1; margin-left: 8px; padding: 5px 12px;
+      background: rgba(255,255,255,0.04); border-radius: 6px;
+      font-size: 0.75rem; color: var(--muted); font-family: monospace;
+    }
+    .browser-content {
+      background: linear-gradient(160deg, #0a1228, #080f1e);
+      padding: 20px;
+    }
+    .bc-hero { padding: 18px; border-radius: 10px; background: rgba(120,200,255,0.06); border: 1px solid rgba(120,200,255,0.12); margin-bottom: 14px; }
+    .bc-hero-title { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 700; margin-bottom: 6px; }
+    .bc-hero-sub { font-size: 0.72rem; color: var(--muted); }
+    .bc-row { display: flex; gap: 10px; margin-bottom: 10px; }
+    .bc-card { flex: 1; padding: 12px; border-radius: 8px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07); font-size: 0.7rem; }
+    .bc-card-label { color: var(--muted); font-size: 0.62rem; margin-bottom: 4px; }
+    .bc-card-val { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.88rem; }
+    .bc-bar-wrap { margin-top: 10px; }
+    .bc-bar-label { font-size: 0.65rem; color: var(--muted); margin-bottom: 5px; }
+    .bc-bar-track { height: 5px; border-radius: 3px; background: rgba(255,255,255,0.06); overflow: hidden; }
+    .bc-bar-fill { height: 100%; border-radius: 3px; }
+
+    .chip {
+      position: absolute; padding: 10px 16px; border-radius: 999px;
+      background: rgba(3,9,18,0.82); border: 1px solid var(--line);
+      font-size: 0.78rem; font-weight: 500; backdrop-filter: blur(8px);
+      white-space: nowrap;
+    }
+    .chip-a { top: 32px; left: 10px; color: var(--accent-teal); border-color: rgba(50,255,200,0.25); }
+    .chip-b { bottom: 52px; right: 8px; color: var(--accent-blue); border-color: rgba(120,200,255,0.25); }
+    .chip-c { bottom: 32px; left: 20px; color: var(--accent-purple); border-color: rgba(180,110,255,0.25); }
+
+    /* GOOGLE SEARCH SECTION */
+    .search-demo {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: center;
+    }
+    .search-copy h2 { font-family: 'Syne', sans-serif; font-size: clamp(1.8rem, 3vw, 3rem); font-weight: 700; line-height: 1.1; margin-bottom: 18px; }
+    .search-copy p { color: var(--muted); line-height: 1.8; margin-bottom: 16px; }
+    .check-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .check-list li { display: flex; align-items: flex-start; gap: 10px; color: var(--muted); font-size: 0.95rem; }
+    .check-list li::before { content: ""; width: 18px; height: 18px; border-radius: 50%; background: rgba(50,255,200,0.12); border: 1px solid rgba(50,255,200,0.3); display: inline-block; flex-shrink: 0; margin-top: 2px; }
+    .google-mock { padding: 28px; }
+    .g-bar {
+      display: flex; align-items: center; gap: 12px; padding: 12px 16px;
+      background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 999px; margin-bottom: 24px;
+    }
+    .g-bar-icon { color: var(--accent-blue); font-size: 0.9rem; }
+    .g-bar-text { color: var(--muted); font-size: 0.88rem; flex: 1; }
+    .g-result { margin-bottom: 18px; }
+    .g-result-url { font-size: 0.75rem; color: var(--muted); margin-bottom: 2px; }
+    .g-result-title { color: #6ab4ff; font-size: 0.95rem; margin-bottom: 4px; text-decoration: underline; }
+    .g-result-desc { font-size: 0.8rem; color: var(--muted); line-height: 1.55; }
+    .g-badge {
+      display: inline-block; font-size: 0.68rem; padding: 3px 8px; border-radius: 4px;
+      background: rgba(50,200,100,0.1); border: 1px solid rgba(50,200,100,0.25); color: #50c878;
+      margin-bottom: 8px;
+    }
+    .g-divider { height: 1px; background: rgba(255,255,255,0.06); margin: 14px 0; }
+    .nxq-result { background: rgba(120,200,255,0.04); border-radius: 10px; padding: 12px; border: 1px solid rgba(120,200,255,0.1); }
+
+    /* WORK GRID */
+    .work-grid { display: grid; grid-template-columns: 1.15fr 0.85fr 0.85fr; gap: 20px; }
+    .project { overflow: hidden; transition: transform 0.25s; cursor: pointer; }
+    .project:hover { transform: translateY(-4px); }
+    .project-preview {
+      width: 100%; height: 220px; object-fit: cover;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      display: block;
+    }
+    .project.featured .project-preview { height: 320px; }
+    .project-info { padding: 20px; }
+    .project-tag {
+      display: inline-block; padding: 6px 12px; border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.12); font-size: 0.78rem; color: var(--muted); margin-bottom: 10px;
+    }
+    .project-info h3 { font-family: 'Syne', sans-serif; font-size: 1.2rem; font-weight: 700; margin-bottom: 8px; }
+    .project-info p { color: var(--muted); font-size: 0.88rem; line-height: 1.7; margin-bottom: 14px; }
+    .link-btn { background: none; border: 0; color: var(--accent-blue); font-size: 0.88rem; font-weight: 600; cursor: pointer; padding: 0; font-family: 'DM Sans', sans-serif; }
+    .link-btn:hover { color: #fff; }
+
+    /* SERVICES */
+    .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .service-card { padding: 30px; }
+    .service-icon {
+      width: 48px; height: 48px; border-radius: 14px; margin-bottom: 18px;
+      background: rgba(120,200,255,0.08); border: 1px solid rgba(120,200,255,0.16);
+      display: grid; place-items: center; font-size: 1.1rem;
+    }
+    .service-card h3 { font-family: 'Syne', sans-serif; font-size: 1.1rem; font-weight: 700; margin-bottom: 10px; }
+    .service-card p { color: var(--muted); font-size: 0.88rem; line-height: 1.75; }
+
+    /* PRICING */
+    .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .pricing-card { padding: 32px; display: flex; flex-direction: column; }
+    .pricing-card.featured::before {
+      background: linear-gradient(135deg, var(--accent-blue) 0%, rgba(255,255,255,0.1) 35%, var(--accent-purple) 65%, var(--accent-teal) 100%);
+    }
+    .pricing-tier { font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
+    .pricing-price {
+      font-family: 'Syne', sans-serif; font-size: 2.8rem; font-weight: 800;
+      margin-bottom: 4px; line-height: 1;
+    }
+    .pricing-price sup { font-size: 1.2rem; vertical-align: super; }
+    .pricing-note { font-size: 0.8rem; color: var(--muted); margin-bottom: 20px; }
+    .pricing-desc { color: var(--muted); font-size: 0.88rem; line-height: 1.7; margin-bottom: 22px; }
+    .pricing-features { list-style: none; display: flex; flex-direction: column; gap: 10px; margin-bottom: 28px; flex: 1; }
+    .pricing-features li { font-size: 0.88rem; color: var(--muted); padding-left: 20px; position: relative; }
+    .pricing-features li::before { content: ""; position: absolute; left: 0; top: 8px; width: 8px; height: 8px; border-radius: 50%; background: var(--accent-teal); opacity: 0.7; }
+    .pricing-features li strong { color: var(--text); font-weight: 500; }
+    .addon-section { margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--line-soft); }
+    .addon-label { font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; }
+    .addon-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+    .addon-chip {
+      padding: 5px 10px; border-radius: 999px; font-size: 0.75rem;
+      border: 1px solid rgba(255,255,255,0.1); color: var(--muted);
+      background: rgba(255,255,255,0.02);
+    }
+    .popular-badge {
+      display: inline-block; font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 5px 12px; border-radius: 999px; margin-bottom: 16px;
+      background: rgba(50,255,200,0.1); border: 1px solid rgba(50,255,200,0.25); color: var(--accent-teal);
+    }
+
+    /* PROCESS */
+    .process-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .step-card { padding: 30px; }
+    .step-num {
+      font-family: 'Syne', sans-serif; font-size: 2.5rem; font-weight: 800;
+      background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text; margin-bottom: 16px; line-height: 1;
+    }
+    .step-card h3 { font-family: 'Syne', sans-serif; font-size: 1.05rem; font-weight: 700; margin-bottom: 10px; }
+    .step-card p { color: var(--muted); font-size: 0.88rem; line-height: 1.75; }
+
+    /* ABOUT */
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+    .about-card { padding: 40px; }
+    .about-card h2 { font-family: 'Syne', sans-serif; font-size: clamp(1.8rem, 2.8vw, 2.8rem); font-weight: 700; line-height: 1.1; margin-bottom: 18px; }
+    .about-card p { color: var(--muted); line-height: 1.8; margin-bottom: 14px; font-size: 0.95rem; }
+    .about-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+    .about-tag { padding: 7px 14px; border-radius: 999px; font-size: 0.8rem; border: 1px solid var(--line); color: var(--muted); }
+
+    /* TESTIMONIALS */
+    .testi-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .testi-card { padding: 28px; }
+    .testi-stars { color: var(--accent-blue); font-size: 0.9rem; margin-bottom: 14px; letter-spacing: 3px; }
+    .testi-quote { font-size: 0.95rem; line-height: 1.75; margin-bottom: 18px; font-style: italic; color: var(--text); }
+    .testi-author { display: flex; align-items: center; gap: 12px; }
+    .testi-avatar {
+      width: 38px; height: 38px; border-radius: 50%;
+      background: linear-gradient(135deg, rgba(120,200,255,0.2), rgba(180,110,255,0.2));
+      border: 1px solid rgba(255,255,255,0.12);
+      display: grid; place-items: center; font-size: 0.8rem; font-weight: 600;
+    }
+    .testi-name { font-size: 0.88rem; font-weight: 500; }
+    .testi-biz { font-size: 0.78rem; color: var(--muted); }
+
+    /* CONTACT */
+    .contact-panel { padding: 48px 52px; display: flex; align-items: center; justify-content: space-between; gap: 32px; }
+    .contact-panel h2 { font-family: 'Syne', sans-serif; font-size: clamp(2rem, 3vw, 3.2rem); font-weight: 700; line-height: 1.1; margin-bottom: 12px; }
+    .contact-panel p { color: var(--muted); max-width: 44ch; line-height: 1.75; font-size: 0.95rem; }
+    .contact-actions { display: flex; flex-direction: column; gap: 12px; min-width: 260px; }
+
+    /* FOOTER */
+    footer { padding: 40px 0 60px; text-align: center; color: var(--muted); font-size: 0.85rem; }
+    footer a { color: var(--accent-blue); text-decoration: none; }
+
+    /* SVG PREVIEWS */
+    .preview-svg { width: 100%; height: 100%; }
+
+    /* ─── RESPONSIVE ─────────────────────────────────────────
+       Breakpoints:
+         1100px  tablet-landscape  → collapse hero & about to 1col, keep 2-col grids
+          780px  tablet-portrait   → collapse most grids to 2col, hide desktop nav
+          480px  mobile            → everything 1col, tighten all padding
+    ──────────────────────────────────────────────────────── */
+
+    /* TABLET LANDSCAPE (≤1100px) */
+    @media (max-width: 1100px) {
+      .hero { grid-template-columns: 1fr; gap: 20px; }
+      .hero-visual { min-height: 420px; }
+      .about-grid { grid-template-columns: 1fr; }
+      .work-grid { grid-template-columns: 1fr 1fr; }
+      .project.featured { grid-column: span 2; }
+      .project.featured .project-preview { height: 260px; }
+    }
+
+    /* TABLET PORTRAIT (≤780px) — nav collapses, grids go 2-col */
+    @media (max-width: 780px) {
+      nav { display: none; }
+      .menu-btn { display: grid; place-items: center; }
+
+      .site-header { padding: 12px 16px; top: 10px; margin-top: 10px; }
+      .brand-mark { width: 36px; height: 36px; font-size: 0.78rem; }
+
+      section { padding-top: 80px; }
+      .hero { padding-top: 90px; }
+      .hero-copy { padding: 28px 24px; }
+      .hero-copy h1 { font-size: clamp(2.2rem, 6vw, 3.2rem); }
+      .hero-stats { grid-template-columns: 1fr 1fr; }
+      .hero-visual { min-height: 340px; }
+
+      .search-demo { grid-template-columns: 1fr; gap: 20px; }
+
+      .work-grid { grid-template-columns: 1fr; }
+      .project.featured { grid-column: span 1; }
+      .project.featured .project-preview { height: 220px; }
+
+      .services-grid { grid-template-columns: 1fr 1fr; }
+      .pricing-grid { grid-template-columns: 1fr 1fr; }
+      .pricing-card.featured { grid-column: span 2; order: -1; }
+      .process-grid { grid-template-columns: 1fr 1fr; }
+      .testi-grid { grid-template-columns: 1fr 1fr; }
+
+      .contact-panel { flex-direction: column; align-items: flex-start; padding: 32px 28px; gap: 24px; }
+      .contact-actions { width: 100%; }
+      .contact-actions .btn { width: 100%; justify-content: center; }
+    }
+
+    /* MOBILE (≤480px) — everything single column, tight padding */
+    @media (max-width: 480px) {
+      .wrap { width: calc(100% - 24px); }
+
+      .site-header { padding: 10px 14px; border-radius: 16px; }
+
+      section { padding-top: 64px; }
+      .hero { padding-top: 76px; gap: 16px; }
+      .hero-copy { padding: 22px 18px; }
+      .hero-copy h1 { font-size: 2rem; line-height: 1.05; }
+      .hero-copy p { font-size: 0.95rem; }
+      .hero-actions { flex-direction: column; }
+      .hero-actions .btn { width: 100%; justify-content: center; }
+      .hero-stats { grid-template-columns: 1fr; gap: 10px; }
+      .hero-visual { min-height: unset; padding: 14px; }
+
+      /* Browser mock — scale down on mobile */
+      .browser-content { padding: 12px; }
+      .bc-row { flex-direction: column; gap: 8px; }
+      .bc-card { width: 100%; }
+
+      .services-grid { grid-template-columns: 1fr; }
+      .pricing-grid { grid-template-columns: 1fr; }
+      .pricing-card.featured { grid-column: span 1; order: -1; }
+      .process-grid { grid-template-columns: 1fr; }
+      .testi-grid { grid-template-columns: 1fr; }
+
+      .pricing-card { padding: 24px; }
+      .service-card { padding: 22px; }
+      .step-card { padding: 22px; }
+      .testi-card { padding: 22px; }
+      .about-card { padding: 24px; }
+
+      .contact-panel { padding: 24px 20px; }
+      .contact-panel h2 { font-size: 1.8rem; }
+
+      .google-mock { padding: 18px; }
+      .g-bar { flex-wrap: wrap; gap: 6px; }
+
+      /* About stat cards — 2 col on mobile is still readable */
+      .about-card + .glass > div:last-child { grid-template-columns: 1fr 1fr !important; }
+
+      footer { padding: 32px 0 48px; font-size: 0.8rem; }
+    }
+
+    /* Extra-small (≤360px) safety net */
+    @media (max-width: 360px) {
+      .hero-copy h1 { font-size: 1.75rem; }
+      .pricing-price { font-size: 2.2rem; }
+      .addon-chips { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="scene">
+    <div class="grid-lines"></div>
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+    <div class="orb orb-4"></div>
+  </div>
+
+  <!-- HEADER -->
+  <header class="site-header">
+    <a class="brand" href="#top">
+      <div class="brand-mark">NXQ</div>
+      <span>Web</span>
+    </a>
+    <nav>
+      <a href="#work">Work</a>
+      <a href="#services">Services</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#process">Process</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <button class="menu-btn" id="menuBtn">☰</button>
+  </header>
+
+  <nav class="mobile-nav" id="mobileNav">
+    <a href="#work">Work</a>
+    <a href="#services">Services</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#process">Process</a>
+    <a href="#about">About</a>
+    <a href="#contact">Contact</a>
+  </nav>
+
+  <main id="top">
+    <div class="wrap">
+
+      <!-- HERO -->
+      <section class="hero" style="padding-top: 110px;">
+        <div class="glass hero-copy">
+          <div class="eyebrow">NXQ Web — Local Business Websites</div>
+          <h1>Your next customer is searching for you <em>right now.</em></h1>
+          <p>When someone types "tree service near me" or "barber shop in [city]," your business needs to show up. I build modern, high-converting websites that get local businesses found — and make them look like the obvious choice.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#contact">Start a Project</a>
+            <a class="btn btn-secondary" href="#work">See My Work</a>
+          </div>
+          <div class="hero-stats">
+            <div class="stat-chip">
+              <strong>SEO-Ready</strong>
+              <span>Built to rank locally</span>
+            </div>
+            <div class="stat-chip">
+              <strong>Glass Style</strong>
+              <span>Premium look & feel</span>
+            </div>
+            <div class="stat-chip">
+              <strong>Fast Delivery</strong>
+              <span>Quick turnaround</span>
+            </div>
+          </div>
+        </div>
+        <div class="glass hero-visual">
+          <div style="width: 100%;">
+            <div class="browser-bar">
+              <div class="browser-dot"></div>
+              <div class="browser-dot"></div>
+              <div class="browser-dot"></div>
+              <div class="browser-url">gibsontreeservice.com</div>
+            </div>
+            <div class="browser-content">
+              <div class="bc-hero">
+                <div class="bc-hero-title">Gibson Tree Service — Sacramento, CA</div>
+                <div class="bc-hero-sub">Free estimates · Licensed & Insured · Same-day service</div>
+              </div>
+              <div class="bc-row">
+                <div class="bc-card">
+                  <div class="bc-card-label">This month</div>
+                  <div class="bc-card-val" style="color: var(--accent-teal);">+47 leads</div>
+                </div>
+                <div class="bc-card">
+                  <div class="bc-card-label">Google rank</div>
+                  <div class="bc-card-val" style="color: var(--accent-blue);">#1 local</div>
+                </div>
+                <div class="bc-card">
+                  <div class="bc-card-label">Visitors</div>
+                  <div class="bc-card-val">1,284</div>
+                </div>
+              </div>
+              <div class="bc-bar-wrap">
+                <div class="bc-bar-label">Search visibility</div>
+                <div class="bc-bar-track"><div class="bc-bar-fill" style="width: 84%; background: linear-gradient(90deg, var(--accent-blue), var(--accent-teal));"></div></div>
+              </div>
+            </div>
+          </div>
+          <div class="chip chip-a">SEO Optimized</div>
+          <div class="chip chip-b">Mobile Ready</div>
+          <div class="chip chip-c">Glass Design</div>
+        </div>
+      </section>
+
+      <!-- WHY A WEBSITE / GOOGLE SECTION -->
+      <section id="visibility" style="padding-top: 100px;">
+        <div class="search-demo">
+          <div class="search-copy">
+            <div class="eyebrow">Get found on Google</div>
+            <h2>If you don't have a site, you don't exist online.</h2>
+            <p>Most local businesses lose customers every day because people search, can't find them, and call a competitor instead. A modern website fixes that. Not just a presence — a page that ranks, converts, and makes you look like the best option before they even call.</p>
+            <ul class="check-list">
+              <li>Show up when people search "near me" for your service</li>
+              <li>Build instant credibility before a customer even calls</li>
+              <li>Stay open for leads 24/7 — even when you're on the job</li>
+              <li>Look more professional than 90% of your competitors</li>
+            </ul>
+          </div>
+          <div class="glass google-mock">
+            <div class="g-bar">
+              <span class="g-bar-icon">&#9679;</span>
+              <span class="g-bar-text">tree service near me</span>
+            </div>
+            <div class="g-result">
+              <div class="g-badge">Ad</div>
+              <div class="g-result-url">bigcorptrees.com</div>
+              <div class="g-result-title">Tree Service — Call Today</div>
+              <div class="g-result-desc">Generic company. No reviews. Site looks like 2009.</div>
+            </div>
+            <div class="g-divider"></div>
+            <div class="g-result nxq-result">
+              <div class="g-badge" style="background: rgba(120,200,255,0.1); border-color: rgba(120,200,255,0.3); color: var(--accent-blue);">Top Result</div>
+              <div class="g-result-url" style="color: var(--accent-teal);">gibsontreeservice.com — Built by NXQ Web</div>
+              <div class="g-result-title" style="color: var(--accent-blue);">Gibson Tree Service — Sacramento's #1 Rated</div>
+              <div class="g-result-desc">★★★★★ 4.9 · 127 reviews · Free estimates · Same-day available · Clean modern site · Easy to call</div>
+            </div>
+            <div class="g-divider"></div>
+            <div class="g-result" style="opacity: 0.45;">
+              <div class="g-result-url">oldtreecompany.net</div>
+              <div class="g-result-title">Old Tree Company</div>
+              <div class="g-result-desc">No site. No credibility. Lost the click.</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- WORK -->
+      <section id="work">
+        <div class="section-head" style="display: flex; align-items: flex-end; justify-content: space-between;">
+          <div>
+            <div class="eyebrow">Selected work</div>
+            <h2 class="section-head" style="margin: 0; font-family: 'Syne', sans-serif; font-size: clamp(2rem, 3.5vw, 3.2rem); font-weight: 700; line-height: 1.05;">Client-style demos in my signature look</h2>
+          </div>
+        </div>
+        <div class="work-grid">
+          <article class="glass project featured">
+            <svg class="project-preview" style="height: 320px;" viewBox="0 0 420 320" xmlns="http://www.w3.org/2000/svg">
+              <rect width="420" height="320" fill="#080f1e"/>
+              <rect x="0" y="0" width="420" height="60" fill="rgba(120,200,255,0.04)" stroke="rgba(120,200,255,0.08)" stroke-width="1"/>
+              <text x="20" y="38" fill="#78c8ff" font-family="Syne,sans-serif" font-size="15" font-weight="700">Gibson Tree Service</text>
+              <text x="20" y="55" fill="#9aafd4" font-family="DM Sans,sans-serif" font-size="9">Sacramento, CA · Free Estimates · Licensed & Insured</text>
+              <rect x="290" y="18" width="110" height="28" rx="14" fill="rgba(50,255,200,0.1)" stroke="rgba(50,255,200,0.25)" stroke-width="1"/>
+              <text x="345" y="37" text-anchor="middle" fill="#32ffc8" font-family="DM Sans,sans-serif" font-size="10">Get Free Quote</text>
+              <rect x="20" y="80" width="180" height="100" rx="10" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.07)" stroke-width="1"/>
+              <text x="30" y="102" fill="#eef4ff" font-family="Syne,sans-serif" font-size="13" font-weight="700">Tree Removal</text>
+              <text x="30" y="118" fill="#9aafd4" font-family="DM Sans,sans-serif" font-size="8">Safe, fast, affordable</text>
+              <text x="30" y="165" fill="#78c8ff" font-family="DM Sans,sans-serif" font-size="9">Learn More →</text>
+              <rect x="210" y="80" width="190" height="100" rx="10" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.07)" stroke-width="1"/>
+              <text x="220" y="102" fill="#eef4ff" font-family="Syne,sans-serif" font-size="13" font-weight="700">Trimming &amp; Pruning</text>
+              <text x="220" y="118" fill="#9aafd4" font-family="DM Sans,sans-serif" font-size="8">Year-round care</text>
+              <text x="220" y="165" fill="#78c8ff" font-family="DM Sans,sans-serif" font-size="9">Learn More →</text>
+              <rect x="20" y="195" width="380" height="55" rx="10" fill="rgba(120,200,255,0.04)" stroke="rgba(120,200,255,0.1)" stroke-width="1"/>
+              <text x="210" y="220" text-anchor="middle" fill="#eef4ff" font-family="Syne,sans-serif" font-size="11" font-weight="700">★★★★★  4.9 / 5 — 127 Google Reviews</text>
+              <text x="210" y="238" text-anchor="middle" fill="#9aafd4" font-family="DM Sans,sans-serif" font-size="8">"Best tree service in Sacramento. Fast, clean, fair price." — Mike R.</text>
+              <rect x="20" y="265" width="380" height="40" rx="10" fill="rgba(180,110,255,0.05)" stroke="rgba(180,110,255,0.1)" stroke-width="1"/>
+              <text x="210" y="290" text-anchor="middle" fill="#9aafd4" font-family="DM Sans,sans-serif" font-size="8">Call (916) 555-0172  ·  NXQweb@protonmail.com  ·  Sacramento, CA</text>
+            </svg>
+            <div class="project-info">
+              <span class="project-tag">Tree Service</span>
+              <h3>Gibson Tree Service</h3>
+              <p>Bold local-service layout with trust sections, service cards, Google review highlights, and a strong call-to-action.</p>
+              <button class="link-btn">Open Preview →</button>
+            </div>
+          </article>
+          <article class="glass project">
+            <svg class="project-preview" viewBox="0 0 360 220" xmlns="http://www.w3.org/2000/svg">
+              <rect width="360" height="220" fill="#060810"/>
+              <rect x="0" y="0" width="360" height="48" fill="rgba(180,110,255,0.04)"/>
+              <text x="20" y="30" fill="#b46eff" font-family="Syne,sans-serif" font-size="14" font-weight="800">Midnight Cuts</text>
+              <text x="290" y="30" fill="#9aafd4" font-family="DM Sans,sans-serif" font-size="9">Book Now</text>
+              <rect x="20" y="62" width="200" height="60" rx="8" fill="rgba(255,255,255,0.02)" stroke="rgba(180,110,255,0.15)" stroke-width="1"/>
+              <text x="30" y="85" fill="#eef4ff" font-family="Syne,sans-serif" font-size="11" font-weight="700">Premium Cuts</text>
+              <text x="30" y="100" fill="#9aafd4" font-family="DM Sans,sans-serif" font-size="8">Fades · Tapers · Lineups</text>
+              <text x="30" y="115" fill="#b46eff" font-family="DM Sans,sans-serif" font-size="10">From $35</text>
+              <rect x="230" y="62" width="110" height="60" rx="8" fill="rgba(180,110,255,0.06)" stroke="rgba(180,110,255,0.15)" stroke-width="1"/>
+              <text x="285" y="90" text-anchor="middle" fill="#eef4ff" font-family="Syne,sans-serif" font-size="9" font-weight="700">Book Online</text>
+              <text x="285" y="106" text-anchor="middle" fill="#9aafd4" font-family="DM Sans,sans-serif" font-size="7">24/7 scheduling</text>
+              <rect x="20" y="138" width="100" height="62" rx="8" fill="rgba(255,255,255,0.02)" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+              <text x="70" y="165" text-anchor="middle" fill="#9aafd4" font-family="DM Sans,sans-serif" font-size="7">Basic Fade</text>
+              <text x="70" y="183" text-anchor="middle" fill="#b46eff" font-family="Syne,sans-serif" font-size="13" font-weight="700">$35</text>
+              <rect x="130" y="138" width="100" height="62" rx="8" fill="rgba(180,110,255,0.08)" stroke="rgba(180,110,255,0.18)" stroke-width="1"/>
+              <text x="180" y="165" text-anchor="middle" fill="#9aafd4" font-family="DM Sans,sans-serif" font-size="7">Signature Cut</text>
+              <text x="180" y="183" text-anchor="middle" fill="#b46eff" font-family="Syne,sans-serif" font-size="13" font-weight="700">$55</text>
+              <rect x="240" y="138" width="100" height="62" rx="8" fill="rgba(255,255,255,0.02)" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+              <text x="290" y="165" text-anchor="middle" fill="#9aafd4" font-family="DM Sans,sans-serif" font-size="7">VIP Package</text>
+              <text x="290" y="183" text-anchor="middle" fill="#b46eff" font-family="Syne,sans-serif" font-size="13" font-weight="700">$80</text>
+            </svg>
+            <div class="project-info">
+              <span class="project-tag">Barber Shop</span>
+              <h3>Midnight Cuts</h3>
+              <p>Dark luxury concept with pricing cards, gallery, and booking flow.</p>
+              <button class="link-btn">Open Preview →</button>
+            </div>
+          </article>
+          <article class="glass project">
+            <svg class="project-preview" viewBox="0 0 360 220" xmlns="http://www.w3.org/2000/svg">
+              <rect width="360" height="220" fill="#06090e"/>
+              <rect x="0" y="0" width="360" height="50" fill="rgba(50,255,200,0.03)"/>
+              <text x="180" y="22" text-anchor="middle" fill="#32ffc8" font-family="Syne,sans-serif" font-size="12" font-weight="700">Radiant Hope Church</text>
+              <text x="180" y="38" text-anchor="middle" fill="#9aafd4" font-family="DM Sans,sans-serif" font-size="8">Sunday Service · 9AM &amp; 11AM · Everyone Welcome</text>
+              <rect x="20" y="62" width="320" height="52" rx="8" fill="rgba(50,255,200,0.04)" stroke="rgba(50,255,200,0.1)" stroke-width="1"/>
+              <text x="180" y="85" text-anchor="middle" fill="#eef4ff" font-family="Syne,sans-serif" font-size="11" font-weight="700">Join Us This Sunday</text>
+              <text x="180" y="103" text-anchor="middle" fill="#9aafd4" font-family="DM Sans,sans-serif" font-size="8">A place of hope, community, and grace for everyone.</text>
+              <rect x="20" y="126" width="100" height="56" rx="8" fill="rgba(255,255,255,0.02)" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+              <text x="70" y="148" text-anchor="middle" fill="#32ffc8" font-family="DM Sans,sans-serif" font-size="7">Next Service</text>
+              <text x="70" y="163" text-anchor="middle" fill="#eef4ff" font-family="Syne,sans-serif" font-size="8" font-weight="700">This Sunday</text>
+              <text x="70" y="175" text-anchor="middle" fill="#9aafd4" font-family="DM Sans,sans-serif" font-size="7">9AM &amp; 11AM</text>
+              <rect x="130" y="126" width="100" height="56" rx="8" fill="rgba(255,255,255,0.02)" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+              <text x="180" y="148" text-anchor="middle" fill="#32ffc8" font-family="DM Sans,sans-serif" font-size="7">Sermons</text>
+              <text x="180" y="163" text-anchor="middle" fill="#eef4ff" font-family="Syne,sans-serif" font-size="8" font-weight="700">Watch Online</text>
+              <text x="180" y="175" text-anchor="middle" fill="#9aafd4" font-family="DM Sans,sans-serif" font-size="7">Full archive</text>
+              <rect x="240" y="126" width="100" height="56" rx="8" fill="rgba(50,255,200,0.05)" stroke="rgba(50,255,200,0.12)" stroke-width="1"/>
+              <text x="290" y="148" text-anchor="middle" fill="#32ffc8" font-family="DM Sans,sans-serif" font-size="7">Give Online</text>
+              <text x="290" y="163" text-anchor="middle" fill="#eef4ff" font-family="Syne,sans-serif" font-size="8" font-weight="700">Support Us</text>
+              <text x="290" y="175" text-anchor="middle" fill="#9aafd4" font-family="DM Sans,sans-serif" font-size="7">Simple &amp; secure</text>
+            </svg>
+            <div class="project-info">
+              <span class="project-tag">Church</span>
+              <h3>Radiant Hope Church</h3>
+              <p>Warm, welcoming design with event cards, sermon section, and giving.</p>
+              <button class="link-btn">Open Preview →</button>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- SERVICES -->
+      <section id="services">
+        <div class="section-head">
+          <div class="eyebrow">What I build</div>
+          <h2 style="font-family: 'Syne', sans-serif; font-size: clamp(2rem, 3.5vw, 3.2rem); font-weight: 700; line-height: 1.05;">Simple services, big impact</h2>
+        </div>
+        <div class="services-grid">
+          <article class="glass service-card">
+            <div class="service-icon">&#9670;</div>
+            <h3>Landing Pages</h3>
+            <p>One-page sites built for local businesses that need a stronger first impression and more phone calls coming in.</p>
+          </article>
+          <article class="glass service-card">
+            <div class="service-icon" style="background: rgba(180,110,255,0.08); border-color: rgba(180,110,255,0.16);">&#9679;</div>
+            <h3>Redesigns</h3>
+            <p>Turn your old, cluttered, or outdated site into something sharp, modern, and actually worth showing off.</p>
+          </article>
+          <article class="glass service-card">
+            <div class="service-icon" style="background: rgba(50,255,200,0.08); border-color: rgba(50,255,200,0.16);">&#9632;</div>
+            <h3>Custom Visuals</h3>
+            <p>Sleek graphics, branded layouts, and glass-style UI elements that make your business look premium online.</p>
+          </article>
+        </div>
+      </section>
+
+      <!-- PRICING -->
+      <section id="pricing">
+        <div class="section-head">
+          <div class="eyebrow">Pricing</div>
+          <h2 style="font-family: 'Syne', sans-serif; font-size: clamp(2rem, 3.5vw, 3.2rem); font-weight: 700; line-height: 1.05;">Clear, upfront pricing</h2>
+        </div>
+        <div class="pricing-grid">
+          <!-- BASIC -->
+          <article class="glass pricing-card">
+            <div class="pricing-tier">Basic</div>
+            <div class="pricing-price"><sup>$</sup>500<span style="font-size: 1rem; color: var(--muted);">+</span></div>
+            <div class="pricing-note">Starting price · one-time</div>
+            <div class="pricing-desc">Perfect for businesses that need a clean, professional online presence fast.</div>
+            <ul class="pricing-features">
+              <li><strong>1-page website</strong> built in the glass style</li>
+              <li><strong>Mobile responsive</strong> design</li>
+              <li><strong>Contact section</strong> with phone/email CTA</li>
+              <li><strong>Basic SEO setup</strong> so Google can find you</li>
+              <li><strong>Google Maps</strong> embed</li>
+              <li>Delivered within 5–7 days</li>
+            </ul>
+            <div class="addon-section">
+              <div class="addon-label">Available add-ons</div>
+              <div class="addon-chips">
+                <span class="addon-chip">+ Logo design $150</span>
+                <span class="addon-chip">+ Extra section $100</span>
+                <span class="addon-chip">+ Domain setup $50</span>
+              </div>
+            </div>
+            <a class="btn btn-secondary" href="#contact" style="margin-top: 24px; justify-content: center;">Get Started</a>
+          </article>
+          <!-- STANDARD -->
+          <article class="glass pricing-card featured">
+            <div class="popular-badge">Most Popular</div>
+            <div class="pricing-tier">Standard</div>
+            <div class="pricing-price"><sup>$</sup>1,000<span style="font-size: 1rem; color: var(--muted);">–1,500+</span></div>
+            <div class="pricing-note">Starting price · one-time</div>
+            <div class="pricing-desc">A full, multi-section site that shows off your work, builds trust, and converts visitors into customers.</div>
+            <ul class="pricing-features">
+              <li><strong>Multi-section site</strong> (up to 6 sections)</li>
+              <li><strong>Portfolio / work gallery</strong> section</li>
+              <li><strong>Services breakdown</strong> with detail cards</li>
+              <li><strong>Testimonial section</strong> with reviews</li>
+              <li><strong>Advanced local SEO</strong> optimization</li>
+              <li><strong>Contact form</strong> integration</li>
+              <li><strong>Animated interactions</strong> throughout</li>
+              <li>Delivered within 7–10 days</li>
+            </ul>
+            <div class="addon-section">
+              <div class="addon-label">Available add-ons</div>
+              <div class="addon-chips">
+                <span class="addon-chip">+ Blog section $200</span>
+                <span class="addon-chip">+ Booking system $250</span>
+                <span class="addon-chip">+ Logo $150</span>
+                <span class="addon-chip">+ Monthly updates $75/mo</span>
+              </div>
+            </div>
+            <a class="btn btn-primary" href="#contact" style="margin-top: 24px; justify-content: center;">Get Started</a>
+          </article>
+          <!-- PREMIUM -->
+          <article class="glass pricing-card">
+            <div class="pricing-tier">Premium</div>
+            <div class="pricing-price"><sup>$</sup>1,500<span style="font-size: 1rem; color: var(--muted);">+</span></div>
+            <div class="pricing-note">Starting price · custom scope</div>
+            <div class="pricing-desc">A fully custom build for businesses that want to stand out and dominate their local market.</div>
+            <ul class="pricing-features">
+              <li><strong>Everything in Standard</strong></li>
+              <li><strong>Custom animations</strong> and motion design</li>
+              <li><strong>Multi-page site</strong> architecture</li>
+              <li><strong>Full branding package</strong> (logo, colors, fonts)</li>
+              <li><strong>E-commerce or booking</strong> integration</li>
+              <li><strong>Priority delivery</strong> and revisions</li>
+              <li><strong>1 month free</strong> post-launch support</li>
+            </ul>
+            <div class="addon-section">
+              <div class="addon-label">Available add-ons</div>
+              <div class="addon-chips">
+                <span class="addon-chip">+ Ongoing retainer</span>
+                <span class="addon-chip">+ Google Ads setup $300</span>
+                <span class="addon-chip">+ Social media kit $200</span>
+                <span class="addon-chip">+ Analytics setup $100</span>
+              </div>
+            </div>
+            <a class="btn btn-secondary" href="#contact" style="margin-top: 24px; justify-content: center;">Get a Quote</a>
+          </article>
+        </div>
+      </section>
+
+      <!-- PROCESS -->
+      <section id="process">
+        <div class="section-head">
+          <div class="eyebrow">How it works</div>
+          <h2 style="font-family: 'Syne', sans-serif; font-size: clamp(2rem, 3.5vw, 3.2rem); font-weight: 700; line-height: 1.05;">Simple process, clean result</h2>
+        </div>
+        <div class="process-grid">
+          <article class="glass step-card">
+            <div class="step-num">01</div>
+            <h3>Tell me the vibe</h3>
+            <p>Send your business name, what you do, and the look you're going for. I'll ask a few quick questions and we're off.</p>
+          </article>
+          <article class="glass step-card">
+            <div class="step-num">02</div>
+            <h3>I build the concept</h3>
+            <p>I design a modern site in my signature glass style, tailored to your brand, your customers, and your local market.</p>
+          </article>
+          <article class="glass step-card">
+            <div class="step-num">03</div>
+            <h3>You go live</h3>
+            <p>Once it looks exactly right, your site goes live and starts doing its job — getting you found and looking premium.</p>
+          </article>
+        </div>
+      </section>
+
+      <!-- ABOUT -->
+      <section id="about">
+        <div class="about-grid">
+          <div class="glass about-card">
+            <div class="eyebrow">About NXQ Web</div>
+            <h2>Built on a style that looks different and works better.</h2>
+            <p>I specialize in building websites for local businesses — the kind that actually help you get found and make you look like the obvious choice when someone lands on your page.</p>
+            <p>My signature look uses glass-morphism, glow accents, deep backgrounds, and smooth layouts. It's modern without being flashy. Premium without being complicated.</p>
+            <p>Every site I build is custom, SEO-conscious, and designed to convert visitors into customers.</p>
+            <div class="about-tags">
+              <span class="about-tag">Web Design</span>
+              <span class="about-tag">Local SEO</span>
+              <span class="about-tag">Glass UI</span>
+              <span class="about-tag">Branding</span>
+              <span class="about-tag">Fast Delivery</span>
+            </div>
+          </div>
+          <div class="glass" style="padding: 32px; display: flex; flex-direction: column; gap: 18px;">
+            <div class="eyebrow">By the numbers</div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; flex: 1;">
+              <div style="padding: 20px; border: 1px solid var(--line-soft); border-radius: 16px; background: rgba(255,255,255,0.02);">
+                <div style="font-family: 'Syne', sans-serif; font-size: 2.2rem; font-weight: 800; color: var(--accent-blue);">100%</div>
+                <div style="font-size: 0.82rem; color: var(--muted); margin-top: 4px;">Custom-built, no templates</div>
+              </div>
+              <div style="padding: 20px; border: 1px solid var(--line-soft); border-radius: 16px; background: rgba(255,255,255,0.02);">
+                <div style="font-family: 'Syne', sans-serif; font-size: 2.2rem; font-weight: 800; color: var(--accent-teal);">5–10</div>
+                <div style="font-size: 0.82rem; color: var(--muted); margin-top: 4px;">Day delivery average</div>
+              </div>
+              <div style="padding: 20px; border: 1px solid var(--line-soft); border-radius: 16px; background: rgba(255,255,255,0.02);">
+                <div style="font-family: 'Syne', sans-serif; font-size: 2.2rem; font-weight: 800; color: var(--accent-purple);">Local</div>
+                <div style="font-size: 0.82rem; color: var(--muted); margin-top: 4px;">SEO on every build</div>
+              </div>
+              <div style="padding: 20px; border: 1px solid var(--line-soft); border-radius: 16px; background: rgba(255,255,255,0.02);">
+                <div style="font-family: 'Syne', sans-serif; font-size: 2.2rem; font-weight: 800; color: var(--accent-blue);">Glass</div>
+                <div style="font-size: 0.82rem; color: var(--muted); margin-top: 4px;">Signature style, every time</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TESTIMONIALS -->
+      <section id="testimonials">
+        <div class="section-head">
+          <div class="eyebrow">What clients say</div>
+          <h2 style="font-family: 'Syne', sans-serif; font-size: clamp(2rem, 3.5vw, 3.2rem); font-weight: 700; line-height: 1.05;">Don't just take my word for it</h2>
+        </div>
+        <div class="testi-grid">
+          <div class="glass testi-card">
+            <div class="testi-stars">★★★★★</div>
+            <p class="testi-quote">"My site looks way more premium than anything else in my area. I've already had two customers mention they called me because the site looked legit."</p>
+            <div class="testi-author">
+              <div class="testi-avatar">MR</div>
+              <div>
+                <div class="testi-name">Marcus R.</div>
+                <div class="testi-biz">Tree Service Owner</div>
+              </div>
+            </div>
+          </div>
+          <div class="glass testi-card">
+            <div class="testi-stars">★★★★★</div>
+            <p class="testi-quote">"Fast, professional, and the result was exactly what I wanted. The glass look really makes my shop stand out. Clients ask about it all the time."</p>
+            <div class="testi-author">
+              <div class="testi-avatar" style="background: linear-gradient(135deg, rgba(180,110,255,0.2), rgba(120,200,255,0.2));">JT</div>
+              <div>
+                <div class="testi-name">Jordan T.</div>
+                <div class="testi-biz">Barber Shop Owner</div>
+              </div>
+            </div>
+          </div>
+          <div class="glass testi-card">
+            <div class="testi-stars">★★★★★</div>
+            <p class="testi-quote">"NXQ Web built something that truly represents our church. Warm, welcoming, and modern. Our congregation loves it and new visitors find us on Google now."</p>
+            <div class="testi-author">
+              <div class="testi-avatar" style="background: linear-gradient(135deg, rgba(50,255,200,0.2), rgba(120,200,255,0.15));">PW</div>
+              <div>
+                <div class="testi-name">Pastor Williams</div>
+                <div class="testi-biz">Radiant Hope Church</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CONTACT -->
+      <section id="contact" style="padding-bottom: 80px;">
+        <div class="glass contact-panel">
+          <div>
+            <div class="eyebrow">Let's work together</div>
+            <h2>Ready to get found online?</h2>
+            <p>Reach out and I'll put together a modern mockup for your business. No commitment — just a look at what your site could be.</p>
+          </div>
+          <div class="contact-actions">
+            <a class="btn btn-primary" href="mailto:NXQweb@protonmail.com" style="justify-content: center;">NXQweb@protonmail.com</a>
+            <button class="btn btn-secondary" id="copyBtn" style="justify-content: center;">Copy Email</button>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <button id="scrollTop" aria-label="Scroll to top" style="
+    position: fixed; bottom: 28px; right: 24px; z-index: 50;
+    width: 46px; height: 46px; border-radius: 50%;
+    background: rgba(3,9,18,0.85); border: 1px solid rgba(120,200,255,0.3);
+    color: #78c8ff; font-size: 1.1rem; cursor: pointer;
+    display: none; align-items: center; justify-content: center;
+    backdrop-filter: blur(12px);
+    box-shadow: 0 0 20px rgba(120,200,255,0.12);
+    transition: opacity 0.2s, transform 0.2s;
+  ">↑</button>
+
+  <footer>
+    <p>© <span id="year"></span> NXQ Web — Modern websites for local businesses. Built with the glass-glow style.<br>
+    <a href="mailto:NXQweb@protonmail.com">NXQweb@protonmail.com</a></p>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Mobile nav toggle
+    const menuBtn = document.getElementById('menuBtn');
+    const mobileNav = document.getElementById('mobileNav');
+    menuBtn.addEventListener('click', () => mobileNav.classList.toggle('open'));
+    mobileNav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => mobileNav.classList.remove('open')));
+    // Close mobile nav when tapping outside
+    document.addEventListener('click', e => {
+      if (!mobileNav.contains(e.target) && !menuBtn.contains(e.target)) mobileNav.classList.remove('open');
+    });
+
+    // Copy email
+    const copyBtn = document.getElementById('copyBtn');
+    copyBtn.addEventListener('click', () => {
+      navigator.clipboard.writeText('NXQweb@protonmail.com').catch(() => {});
+      copyBtn.textContent = 'Copied!';
+      setTimeout(() => copyBtn.textContent = 'Copy Email', 2200);
+    });
+
+    // Scroll-to-top button
+    const scrollTopBtn = document.getElementById('scrollTop');
+    window.addEventListener('scroll', () => {
+      const show = window.scrollY > 500;
+      scrollTopBtn.style.display = show ? 'flex' : 'none';
+    }, { passive: true });
+    scrollTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+    // Active nav link highlight on scroll
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('nav a, .mobile-nav a');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          navLinks.forEach(a => {
+            a.style.color = a.getAttribute('href') === '#' + entry.target.id ? '#eef4ff' : '';
+          });
+        }
+      });
+    }, { threshold: 0.35 });
+    sections.forEach(s => observer.observe(s));
+
+    // Fade-in sections on scroll
+    const fadeEls = document.querySelectorAll('.glass');
+    const fadeObs = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { e.target.style.opacity = '1'; e.target.style.transform = 'translateY(0)'; fadeObs.unobserve(e.target); }
+      });
+    }, { threshold: 0.08 });
+    fadeEls.forEach(el => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(18px)';
+      el.style.transition = 'opacity 0.55s ease, transform 0.55s ease';
+      fadeObs.observe(el);
+    });
+  </script>
+</body>
+</html>

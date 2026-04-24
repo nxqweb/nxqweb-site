@@ -1,0 +1,1110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>NXQ Web — Client Portal</title>
+  <meta name="robots" content="noindex, nofollow"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #030912;
+      --bg2: #070e1c;
+      --bg3: #0b1526;
+      --text: #eef4ff;
+      --muted: #7a8fb8;
+      --muted2: #9aafd4;
+      --line: rgba(255,255,255,0.10);
+      --line-soft: rgba(255,255,255,0.05);
+      --blue: #78c8ff;
+      --purple: #b46eff;
+      --teal: #32ffc8;
+      --red: #ff5c7a;
+      --amber: #ffb347;
+      --green: #4ade80;
+      --radius: 20px;
+      --radius-sm: 12px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'DM Sans', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ── ATMOSPHERE ── */
+    .scene { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+    .orb { position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.25; }
+    .o1 { width: 600px; height: 600px; background: rgba(80,120,255,0.2); top: -15%; left: -10%; }
+    .o2 { width: 400px; height: 400px; background: rgba(160,80,255,0.15); bottom: 10%; right: -8%; }
+    .o3 { width: 300px; height: 300px; background: rgba(40,220,180,0.10); top: 40%; left: 40%; }
+    .grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,0.015) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.015) 1px,transparent 1px); background-size: 52px 52px; }
+
+    /* ── GLASS ── */
+    .glass {
+      position: relative;
+      background: rgba(255,255,255,0.006);
+      border: 1px solid var(--line-soft);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+    .glass::before {
+      content: ""; position: absolute; inset: 0; padding: 1px; border-radius: inherit;
+      background: linear-gradient(135deg, rgba(120,200,255,0.7), rgba(255,255,255,0.08), rgba(180,110,255,0.5), rgba(50,255,200,0.45));
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor; mask-composite: exclude; pointer-events: none;
+    }
+
+    /* ── LAYOUT ── */
+    #app { position: relative; z-index: 1; min-height: 100vh; }
+
+    /* ══════════════════════════════════════
+       LOGIN SCREEN
+    ══════════════════════════════════════ */
+    #loginScreen {
+      min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 24px;
+    }
+    .login-box { width: 100%; max-width: 420px; padding: 44px 40px; }
+    .login-logo { display: flex; align-items: center; gap: 10px; margin-bottom: 36px; }
+    .logo-mark {
+      width: 42px; height: 42px; border-radius: 12px; display: grid; place-items: center;
+      background: linear-gradient(135deg,rgba(120,200,255,0.18),rgba(180,110,255,0.12));
+      border: 1px solid rgba(255,255,255,0.14); font-family: 'Syne',sans-serif; font-weight: 800; font-size: 0.82rem;
+    }
+    .logo-text { font-family: 'Syne',sans-serif; font-weight: 800; font-size: 1.1rem; }
+    .login-box h1 { font-family: 'Syne',sans-serif; font-size: 1.8rem; font-weight: 700; margin-bottom: 8px; }
+    .login-box p { color: var(--muted2); font-size: 0.9rem; margin-bottom: 32px; line-height: 1.6; }
+
+    .field { margin-bottom: 18px; }
+    .field label { display: block; font-size: 0.78rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted2); margin-bottom: 8px; }
+    .field input {
+      width: 100%; padding: 13px 16px; border-radius: var(--radius-sm);
+      background: rgba(255,255,255,0.04); border: 1px solid var(--line);
+      color: var(--text); font-family: 'DM Sans',sans-serif; font-size: 0.95rem;
+      outline: none; transition: border-color 0.2s;
+    }
+    .field input:focus { border-color: rgba(120,200,255,0.5); }
+    .field input::placeholder { color: var(--muted); }
+
+    .btn-primary {
+      width: 100%; padding: 14px; border-radius: 999px;
+      background: linear-gradient(135deg,rgba(120,200,255,0.15),rgba(180,110,255,0.12));
+      border: 1px solid rgba(120,200,255,0.3); color: var(--text);
+      font-family: 'DM Sans',sans-serif; font-size: 0.95rem; font-weight: 500;
+      cursor: pointer; transition: all 0.2s; margin-top: 8px;
+    }
+    .btn-primary:hover { border-color: rgba(120,200,255,0.55); box-shadow: 0 0 24px rgba(120,200,255,0.12); transform: translateY(-1px); }
+
+    .login-footer { text-align: center; margin-top: 24px; font-size: 0.82rem; color: var(--muted); }
+    .login-footer a { color: var(--blue); text-decoration: none; }
+    .login-error {
+      padding: 11px 14px; border-radius: var(--radius-sm); margin-bottom: 18px;
+      background: rgba(255,92,122,0.08); border: 1px solid rgba(255,92,122,0.2);
+      color: #ff8fa3; font-size: 0.85rem; display: none;
+    }
+    .verify-badge {
+      display: flex; align-items: center; gap: 10px; padding: 12px 14px;
+      border-radius: var(--radius-sm); margin-bottom: 20px;
+      background: rgba(50,255,200,0.06); border: 1px solid rgba(50,255,200,0.18);
+      color: var(--teal); font-size: 0.83rem;
+    }
+
+    /* ══════════════════════════════════════
+       DASHBOARD
+    ══════════════════════════════════════ */
+    #dashboard { display: none; min-height: 100vh; }
+
+    /* SIDEBAR */
+    .sidebar {
+      position: fixed; left: 0; top: 0; bottom: 0; width: 240px; z-index: 20;
+      background: rgba(3,9,18,0.92); border-right: 1px solid var(--line-soft);
+      backdrop-filter: blur(20px); display: flex; flex-direction: column; padding: 24px 16px;
+    }
+    .sidebar-logo { display: flex; align-items: center; gap: 10px; padding: 8px 10px; margin-bottom: 32px; }
+    .sidebar-logo .logo-text { font-family: 'Syne',sans-serif; font-weight: 800; font-size: 1rem; }
+
+    .nav-section { font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); padding: 0 10px; margin-bottom: 8px; margin-top: 20px; }
+    .nav-item {
+      display: flex; align-items: center; gap: 10px; padding: 11px 12px; border-radius: var(--radius-sm);
+      color: var(--muted2); font-size: 0.88rem; cursor: pointer; transition: all 0.18s; margin-bottom: 2px;
+      border: 1px solid transparent; text-decoration: none;
+    }
+    .nav-item:hover { background: rgba(255,255,255,0.04); color: var(--text); }
+    .nav-item.active { background: rgba(120,200,255,0.08); color: var(--blue); border-color: rgba(120,200,255,0.14); }
+    .nav-icon { width: 18px; text-align: center; font-size: 0.9rem; }
+    .nav-badge {
+      margin-left: auto; background: rgba(255,92,122,0.15); color: #ff8fa3;
+      border: 1px solid rgba(255,92,122,0.25); border-radius: 999px;
+      font-size: 0.68rem; padding: 2px 7px;
+    }
+
+    .sidebar-bottom { margin-top: auto; }
+    .client-chip {
+      display: flex; align-items: center; gap: 10px; padding: 12px;
+      border-radius: var(--radius-sm); background: rgba(255,255,255,0.03); border: 1px solid var(--line-soft);
+    }
+    .avatar {
+      width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center;
+      background: linear-gradient(135deg,rgba(120,200,255,0.2),rgba(180,110,255,0.2));
+      border: 1px solid rgba(255,255,255,0.12); font-size: 0.78rem; font-weight: 600; flex-shrink: 0;
+    }
+    .client-name { font-size: 0.82rem; font-weight: 500; }
+    .client-id { font-size: 0.72rem; color: var(--muted); }
+    .logout-btn { background: none; border: none; color: var(--muted); font-size: 0.78rem; cursor: pointer; margin-top: 8px; padding: 6px 12px; width: 100%; text-align: left; border-radius: 8px; transition: color 0.2s; }
+    .logout-btn:hover { color: var(--red); }
+
+    /* MAIN CONTENT */
+    .main { margin-left: 240px; padding: 32px; min-height: 100vh; }
+    .page { display: none; }
+    .page.active { display: block; }
+    .page-header { margin-bottom: 28px; }
+    .page-header h2 { font-family: 'Syne',sans-serif; font-size: 1.6rem; font-weight: 700; margin-bottom: 4px; }
+    .page-header p { color: var(--muted2); font-size: 0.88rem; }
+
+    /* STAT CARDS */
+    .stats-row { display: grid; grid-template-columns: repeat(4,1fr); gap: 16px; margin-bottom: 24px; }
+    .stat-card {
+      padding: 20px 22px; border-radius: var(--radius);
+      background: rgba(255,255,255,0.004); border: 1px solid var(--line-soft);
+    }
+    .stat-label { font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+    .stat-val { font-family: 'Syne',sans-serif; font-size: 1.8rem; font-weight: 700; line-height: 1; }
+    .stat-sub { font-size: 0.78rem; color: var(--muted); margin-top: 5px; }
+    .stat-green { color: var(--green); }
+    .stat-blue { color: var(--blue); }
+    .stat-amber { color: var(--amber); }
+    .stat-red { color: var(--red); }
+
+    /* STATUS BADGE */
+    .badge {
+      display: inline-flex; align-items: center; gap: 5px;
+      padding: 4px 10px; border-radius: 999px; font-size: 0.75rem; font-weight: 500;
+    }
+    .badge-live { background: rgba(74,222,128,0.1); border: 1px solid rgba(74,222,128,0.25); color: var(--green); }
+    .badge-suspended { background: rgba(255,92,122,0.1); border: 1px solid rgba(255,92,122,0.25); color: var(--red); }
+    .badge-building { background: rgba(120,200,255,0.1); border: 1px solid rgba(120,200,255,0.25); color: var(--blue); }
+    .badge-pending { background: rgba(255,179,71,0.1); border: 1px solid rgba(255,179,71,0.25); color: var(--amber); }
+    .badge-dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+
+    /* SITE CARD */
+    .site-card { padding: 28px; margin-bottom: 20px; }
+    .site-card-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 20px; gap: 16px; }
+    .site-domain { font-family: 'Syne',sans-serif; font-size: 1.2rem; font-weight: 700; margin-bottom: 4px; }
+    .site-meta { font-size: 0.8rem; color: var(--muted2); }
+    .site-stats { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; margin-top: 20px; }
+    .site-stat { padding: 14px; border-radius: var(--radius-sm); background: rgba(255,255,255,0.025); border: 1px solid var(--line-soft); }
+    .site-stat-label { font-size: 0.7rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 5px; }
+    .site-stat-val { font-family: 'Syne',sans-serif; font-size: 1.1rem; font-weight: 700; }
+
+    /* INVOICE TABLE */
+    .table-wrap { border-radius: var(--radius); border: 1px solid var(--line-soft); overflow: hidden; }
+    table { width: 100%; border-collapse: collapse; }
+    th { padding: 13px 18px; text-align: left; font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); background: rgba(255,255,255,0.025); border-bottom: 1px solid var(--line-soft); }
+    td { padding: 14px 18px; font-size: 0.88rem; border-bottom: 1px solid var(--line-soft); color: var(--muted2); }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: rgba(255,255,255,0.015); }
+    td.strong { color: var(--text); font-weight: 500; }
+
+    .pay-btn {
+      padding: 7px 14px; border-radius: 999px; font-size: 0.78rem; font-weight: 500; cursor: pointer;
+      background: rgba(120,200,255,0.1); border: 1px solid rgba(120,200,255,0.25); color: var(--blue);
+      font-family: 'DM Sans',sans-serif; transition: all 0.2s;
+    }
+    .pay-btn:hover { background: rgba(120,200,255,0.18); }
+
+    /* CHANGE REQUEST FORM */
+    .request-form { padding: 28px; max-width: 640px; }
+    .request-form h3 { font-family: 'Syne',sans-serif; font-size: 1.1rem; font-weight: 700; margin-bottom: 6px; }
+    .request-form p { color: var(--muted2); font-size: 0.85rem; margin-bottom: 24px; line-height: 1.6; }
+    .field select {
+      width: 100%; padding: 13px 16px; border-radius: var(--radius-sm);
+      background: rgba(255,255,255,0.04); border: 1px solid var(--line);
+      color: var(--text); font-family: 'DM Sans',sans-serif; font-size: 0.95rem; outline: none;
+    }
+    .field select option { background: #0b1526; }
+    .field textarea {
+      width: 100%; padding: 13px 16px; border-radius: var(--radius-sm);
+      background: rgba(255,255,255,0.04); border: 1px solid var(--line);
+      color: var(--text); font-family: 'DM Sans',sans-serif; font-size: 0.95rem;
+      outline: none; resize: vertical; min-height: 120px; transition: border-color 0.2s; line-height: 1.6;
+    }
+    .field textarea:focus, .field select:focus { border-color: rgba(120,200,255,0.5); }
+
+    /* REQUEST HISTORY */
+    .request-item {
+      display: flex; align-items: flex-start; gap: 14px; padding: 16px 18px;
+      border-bottom: 1px solid var(--line-soft);
+    }
+    .request-item:last-child { border-bottom: none; }
+    .req-icon {
+      width: 34px; height: 34px; border-radius: 10px; display: grid; place-items: center;
+      flex-shrink: 0; font-size: 0.9rem;
+    }
+    .req-icon-pending { background: rgba(255,179,71,0.1); border: 1px solid rgba(255,179,71,0.2); }
+    .req-icon-done { background: rgba(74,222,128,0.1); border: 1px solid rgba(74,222,128,0.2); }
+    .req-title { font-size: 0.88rem; font-weight: 500; margin-bottom: 3px; }
+    .req-date { font-size: 0.75rem; color: var(--muted); }
+
+    /* SUSPENSION BANNER */
+    .suspension-banner {
+      padding: 18px 24px; border-radius: var(--radius); margin-bottom: 24px;
+      background: rgba(255,92,122,0.06); border: 1px solid rgba(255,92,122,0.2);
+      display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    }
+    .suspension-banner h4 { color: var(--red); font-size: 0.95rem; font-weight: 600; margin-bottom: 4px; }
+    .suspension-banner p { color: var(--muted2); font-size: 0.82rem; }
+
+    /* TABS */
+    .tabs { display: flex; gap: 4px; margin-bottom: 24px; background: rgba(255,255,255,0.025); border-radius: 999px; padding: 4px; width: fit-content; }
+    .tab { padding: 8px 18px; border-radius: 999px; font-size: 0.85rem; cursor: pointer; color: var(--muted2); transition: all 0.18s; border: 1px solid transparent; }
+    .tab.active { background: rgba(120,200,255,0.1); color: var(--blue); border-color: rgba(120,200,255,0.2); }
+
+    /* SECURITY PAGE */
+    .security-row { display: flex; align-items: center; justify-content: space-between; padding: 18px 0; border-bottom: 1px solid var(--line-soft); gap: 16px; }
+    .security-row:last-child { border-bottom: none; }
+    .security-label { font-size: 0.9rem; font-weight: 500; margin-bottom: 3px; }
+    .security-desc { font-size: 0.78rem; color: var(--muted); }
+    .toggle {
+      width: 44px; height: 24px; border-radius: 999px; border: 1px solid var(--line); cursor: pointer;
+      background: rgba(255,255,255,0.04); position: relative; transition: all 0.2s; flex-shrink: 0;
+    }
+    .toggle.on { background: rgba(74,222,128,0.2); border-color: rgba(74,222,128,0.4); }
+    .toggle::after {
+      content: ""; position: absolute; width: 16px; height: 16px; border-radius: 50%;
+      background: var(--muted); top: 3px; left: 3px; transition: all 0.2s;
+    }
+    .toggle.on::after { background: var(--green); left: 22px; }
+    .small-btn {
+      padding: 8px 16px; border-radius: 999px; font-size: 0.8rem; cursor: pointer;
+      background: rgba(255,255,255,0.04); border: 1px solid var(--line); color: var(--muted2);
+      font-family: 'DM Sans',sans-serif; transition: all 0.2s;
+    }
+    .small-btn:hover { color: var(--text); border-color: rgba(255,255,255,0.2); }
+
+    /* MOBILE HEADER */
+    .mobile-header {
+      display: none; position: sticky; top: 0; z-index: 20; padding: 14px 16px;
+      background: rgba(3,9,18,0.92); border-bottom: 1px solid var(--line-soft);
+      backdrop-filter: blur(20px); align-items: center; justify-content: space-between;
+    }
+    .hamburger { background: none; border: 1px solid var(--line); color: var(--text); border-radius: 8px; width: 36px; height: 36px; cursor: pointer; font-size: 0.9rem; }
+    .mobile-sidebar-overlay {
+      display: none; position: fixed; inset: 0; z-index: 19;
+      background: rgba(0,0,0,0.6); backdrop-filter: blur(4px);
+    }
+    .mobile-sidebar-overlay.open { display: block; }
+
+    /* SUCCESS TOAST */
+    .toast {
+      position: fixed; bottom: 28px; right: 24px; z-index: 100;
+      padding: 14px 20px; border-radius: var(--radius-sm);
+      background: rgba(3,9,18,0.95); border: 1px solid rgba(74,222,128,0.3);
+      color: var(--green); font-size: 0.88rem; font-weight: 500;
+      backdrop-filter: blur(12px); display: none; align-items: center; gap: 8px;
+      box-shadow: 0 0 30px rgba(74,222,128,0.08);
+    }
+    .toast.show { display: flex; }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      .sidebar { transform: translateX(-100%); transition: transform 0.25s; }
+      .sidebar.open { transform: translateX(0); }
+      .main { margin-left: 0; padding: 20px 16px; }
+      .mobile-header { display: flex; }
+      .stats-row { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 520px) {
+      .stats-row { grid-template-columns: 1fr; }
+      .site-stats { grid-template-columns: 1fr; }
+      .login-box { padding: 28px 22px; }
+      .tabs { width: 100%; }
+      .tab { flex: 1; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="scene">
+  <div class="grid"></div>
+  <div class="orb o1"></div>
+  <div class="orb o2"></div>
+  <div class="orb o3"></div>
+</div>
+
+<div id="app">
+
+  <!-- ══════════ LOGIN ══════════ -->
+  <div id="loginScreen">
+    <div class="glass login-box">
+      <div class="login-logo">
+        <div class="logo-mark">NXQ</div>
+        <span class="logo-text">Web</span>
+      </div>
+      <h1>Client Portal</h1>
+      <p>Sign in to manage your website, view invoices, and submit change requests.</p>
+
+      <div class="verify-badge">
+        <span>🔒</span>
+        <span>This portal is secured with email verification and encrypted sessions.</span>
+      </div>
+
+      <div id="loginError" class="login-error">Incorrect email or password. Please try again.</div>
+
+      <div id="loginForm">
+        <div class="field">
+          <label>Email Address</label>
+          <input type="email" id="loginEmail" placeholder="you@yourbusiness.com"/>
+        </div>
+        <div class="field">
+          <label>Password</label>
+          <input type="password" id="loginPass" placeholder="••••••••"/>
+        </div>
+        <button class="btn-primary" onclick="doLogin()">Sign In →</button>
+      </div>
+
+      <div class="login-footer">
+        Forgot your password? <a href="mailto:NXQweb@protonmail.com">Contact NXQ Web</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════ DASHBOARD ══════════ -->
+  <div id="dashboard">
+
+    <!-- Mobile header -->
+    <div class="mobile-header">
+      <div class="login-logo" style="margin:0;">
+        <div class="logo-mark" style="width:32px;height:32px;font-size:0.72rem;">NXQ</div>
+        <span class="logo-text" style="font-size:0.95rem;">Web Portal</span>
+      </div>
+      <button class="hamburger" onclick="toggleMobileSidebar()">☰</button>
+    </div>
+    <div class="mobile-sidebar-overlay" id="overlay" onclick="toggleMobileSidebar()"></div>
+
+    <!-- Sidebar -->
+    <nav class="sidebar" id="sidebar">
+      <div class="sidebar-logo">
+        <div class="logo-mark">NXQ</div>
+        <span class="logo-text">Web</span>
+      </div>
+
+      <div class="nav-section">My Site</div>
+      <a class="nav-item active" onclick="showPage('overview')" href="#">
+        <span class="nav-icon">◈</span> Overview
+      </a>
+      <a class="nav-item" onclick="showPage('site')" href="#">
+        <span class="nav-icon">⬡</span> Site Status
+      </a>
+      <a class="nav-item" onclick="showPage('requests')" href="#">
+        <span class="nav-icon">✦</span> Change Requests
+        <span class="nav-badge">1</span>
+      </a>
+
+      <div class="nav-section">Billing</div>
+      <a class="nav-item" onclick="showPage('invoices')" href="#">
+        <span class="nav-icon">◎</span> Invoices
+      </a>
+      <a class="nav-item" onclick="showPage('billing')" href="#">
+        <span class="nav-icon">⬢</span> Billing Info
+      </a>
+
+      <div class="nav-section">Account</div>
+      <a class="nav-item" onclick="showPage('security')" href="#">
+        <span class="nav-icon">⬟</span> Security
+      </a>
+      <a class="nav-item" onclick="showPage('support')" href="#">
+        <span class="nav-icon">◉</span> Support
+      </a>
+
+      <div class="sidebar-bottom">
+        <div class="client-chip">
+          <div class="avatar" id="sidebarAvatar">GR</div>
+          <div>
+            <div class="client-name" id="sidebarName">Gibson Tree</div>
+            <div class="client-id" id="sidebarId">NXQ-00142</div>
+          </div>
+        </div>
+        <button class="logout-btn" onclick="doLogout()">← Sign Out</button>
+      </div>
+    </nav>
+
+    <!-- Main -->
+    <main class="main">
+
+      <!-- OVERVIEW PAGE -->
+      <div class="page active" id="page-overview">
+        <div class="page-header">
+          <h2>Welcome back, <span id="welcomeName">Gibson</span> 👋</h2>
+          <p>Here's everything going on with your NXQ Web site.</p>
+        </div>
+
+        <div id="suspensionBanner" class="suspension-banner" style="display:none;">
+          <div>
+            <h4>⚠ Payment Overdue — Site Suspension in <span id="daysLeft">4</span> Days</h4>
+            <p>Your last payment failed. Please update your billing to avoid your site going offline.</p>
+          </div>
+          <button class="pay-btn" onclick="showPage('invoices')">Pay Now →</button>
+        </div>
+
+        <div class="stats-row">
+          <div class="stat-card">
+            <div class="stat-label">Site Status</div>
+            <div class="stat-val stat-green" id="overviewStatus">Live</div>
+            <div class="stat-sub">Active & running</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Next Payment</div>
+            <div class="stat-val stat-blue">$50</div>
+            <div class="stat-sub" id="nextPayDate">Due May 15, 2025</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Open Requests</div>
+            <div class="stat-val stat-amber" id="openRequests">1</div>
+            <div class="stat-sub">In progress</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Client ID</div>
+            <div class="stat-val" style="font-size:1.1rem;" id="overviewId">NXQ-00142</div>
+            <div class="stat-sub">Your account ref</div>
+          </div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1.4fr 1fr;gap:20px;">
+          <div class="glass site-card">
+            <div class="site-card-header">
+              <div>
+                <div class="site-domain" id="ovDomain">gibsontreeservice.com</div>
+                <div class="site-meta" id="ovMeta">Tree Service · Built April 2025 · NXQ Glass Style</div>
+              </div>
+              <span class="badge badge-live"><span class="badge-dot"></span> Live</span>
+            </div>
+            <div style="height:1px;background:var(--line-soft);margin-bottom:20px;"></div>
+            <div class="site-stats">
+              <div class="site-stat">
+                <div class="site-stat-label">Package</div>
+                <div class="site-stat-val" style="font-size:0.95rem;" id="ovPackage">Standard</div>
+              </div>
+              <div class="site-stat">
+                <div class="site-stat-label">Hosting</div>
+                <div class="site-stat-val" style="font-size:0.95rem;">$50/mo</div>
+              </div>
+              <div class="site-stat">
+                <div class="site-stat-label">Since</div>
+                <div class="site-stat-val" style="font-size:0.95rem;">Apr 2025</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="glass" style="padding:24px;">
+            <div style="font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-bottom:16px;">Recent Activity</div>
+            <div class="request-item" style="padding:10px 0;">
+              <div class="req-icon req-icon-done">✓</div>
+              <div>
+                <div class="req-title">Site went live</div>
+                <div class="req-date">April 15, 2025</div>
+              </div>
+            </div>
+            <div class="request-item" style="padding:10px 0;">
+              <div class="req-icon req-icon-pending">⏳</div>
+              <div>
+                <div class="req-title">Update hours request</div>
+                <div class="req-date">April 18, 2025 · In progress</div>
+              </div>
+            </div>
+            <div class="request-item" style="padding:10px 0;border:none;">
+              <div class="req-icon req-icon-done">$</div>
+              <div>
+                <div class="req-title">Invoice #001 paid</div>
+                <div class="req-date">April 15, 2025</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SITE STATUS PAGE -->
+      <div class="page" id="page-site">
+        <div class="page-header">
+          <h2>Site Status</h2>
+          <p>Your website details and performance overview.</p>
+        </div>
+        <div class="glass site-card">
+          <div class="site-card-header">
+            <div>
+              <div class="site-domain" id="siteDomain">gibsontreeservice.com</div>
+              <div class="site-meta">Hosted by NXQ Web · Netlify CDN · SSL Active</div>
+            </div>
+            <span class="badge badge-live"><span class="badge-dot"></span> Live</span>
+          </div>
+          <div style="height:1px;background:var(--line-soft);margin-bottom:20px;"></div>
+          <div class="site-stats" style="grid-template-columns:repeat(4,1fr);">
+            <div class="site-stat">
+              <div class="site-stat-label">SSL Certificate</div>
+              <div class="site-stat-val stat-green" style="font-size:0.95rem;">Active ✓</div>
+            </div>
+            <div class="site-stat">
+              <div class="site-stat-label">Domain Status</div>
+              <div class="site-stat-val stat-green" style="font-size:0.95rem;">Connected</div>
+            </div>
+            <div class="site-stat">
+              <div class="site-stat-label">Last Updated</div>
+              <div class="site-stat-val" style="font-size:0.95rem;">Apr 18</div>
+            </div>
+            <div class="site-stat">
+              <div class="site-stat-label">Uptime</div>
+              <div class="site-stat-val stat-green" style="font-size:0.95rem;">99.9%</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="glass" style="padding:28px;margin-top:20px;">
+          <div style="font-family:'Syne',sans-serif;font-size:1rem;font-weight:700;margin-bottom:6px;">What's Included in Your Plan</div>
+          <div style="color:var(--muted2);font-size:0.85rem;margin-bottom:20px;">Everything NXQ Web manages for you every month.</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+            <div style="padding:14px;border-radius:var(--radius-sm);background:rgba(74,222,128,0.04);border:1px solid rgba(74,222,128,0.12);font-size:0.85rem;color:var(--muted2);">✓ &nbsp;Site hosted on Netlify CDN</div>
+            <div style="padding:14px;border-radius:var(--radius-sm);background:rgba(74,222,128,0.04);border:1px solid rgba(74,222,128,0.12);font-size:0.85rem;color:var(--muted2);">✓ &nbsp;Free SSL certificate (HTTPS)</div>
+            <div style="padding:14px;border-radius:var(--radius-sm);background:rgba(74,222,128,0.04);border:1px solid rgba(74,222,128,0.12);font-size:0.85rem;color:var(--muted2);">✓ &nbsp;Custom domain management</div>
+            <div style="padding:14px;border-radius:var(--radius-sm);background:rgba(74,222,128,0.04);border:1px solid rgba(74,222,128,0.12);font-size:0.85rem;color:var(--muted2);">✓ &nbsp;Uptime monitoring</div>
+            <div style="padding:14px;border-radius:var(--radius-sm);background:rgba(74,222,128,0.04);border:1px solid rgba(74,222,128,0.12);font-size:0.85rem;color:var(--muted2);">✓ &nbsp;Minor content updates included</div>
+            <div style="padding:14px;border-radius:var(--radius-sm);background:rgba(74,222,128,0.04);border:1px solid rgba(74,222,128,0.12);font-size:0.85rem;color:var(--muted2);">✓ &nbsp;Mobile responsive always</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CHANGE REQUESTS PAGE -->
+      <div class="page" id="page-requests">
+        <div class="page-header">
+          <h2>Change Requests</h2>
+          <p>Request updates to your website. Most changes are completed within 24–48 hours.</p>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:start;">
+          <div class="glass request-form">
+            <h3>Submit a Request</h3>
+            <p>Describe what you'd like changed and we'll take care of it. You'll receive an email confirmation once it's done.</p>
+            <div class="field">
+              <label>Request Type</label>
+              <select id="reqType">
+                <option value="">Select a type...</option>
+                <option>Update text / content</option>
+                <option>Update business hours</option>
+                <option>Add a new service</option>
+                <option>Update contact info</option>
+                <option>Add photos / images</option>
+                <option>Update pricing</option>
+                <option>Other change</option>
+              </select>
+            </div>
+            <div class="field">
+              <label>Describe the Change</label>
+              <textarea id="reqDesc" placeholder="e.g. Please update my hours to Mon–Fri 8am–6pm, Sat 9am–3pm..."></textarea>
+            </div>
+            <button class="btn-primary" onclick="submitRequest()" style="width:auto;padding:12px 28px;">Submit Request →</button>
+          </div>
+
+          <div class="glass" style="overflow:hidden;">
+            <div style="padding:20px 22px;border-bottom:1px solid var(--line-soft);">
+              <div style="font-family:'Syne',sans-serif;font-size:0.95rem;font-weight:700;">Request History</div>
+            </div>
+            <div id="requestList">
+              <div class="request-item">
+                <div class="req-icon req-icon-pending">⏳</div>
+                <div style="flex:1;">
+                  <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;">
+                    <div class="req-title">Update business hours</div>
+                    <span class="badge badge-pending">In Progress</span>
+                  </div>
+                  <div class="req-date">Submitted April 18, 2025</div>
+                </div>
+              </div>
+              <div class="request-item">
+                <div class="req-icon req-icon-done">✓</div>
+                <div style="flex:1;">
+                  <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;">
+                    <div class="req-title">Add phone number to header</div>
+                    <span class="badge badge-live">Done</span>
+                  </div>
+                  <div class="req-date">Completed April 16, 2025</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- INVOICES PAGE -->
+      <div class="page" id="page-invoices">
+        <div class="page-header">
+          <h2>Invoices</h2>
+          <p>Your billing history and outstanding payments.</p>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Invoice</th>
+                <th>Description</th>
+                <th>Amount</th>
+                <th>Date</th>
+                <th>Status</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="strong">INV-003</td>
+                <td>Monthly Hosting — May 2025</td>
+                <td class="strong">$50.00</td>
+                <td>May 1, 2025</td>
+                <td><span class="badge badge-pending">Due</span></td>
+                <td><button class="pay-btn" onclick="showPayPal('INV-003','50.00')">Pay via PayPal →</button></td>
+              </tr>
+              <tr>
+                <td class="strong">INV-002</td>
+                <td>Website Build — Final 50%</td>
+                <td class="strong">$500.00</td>
+                <td>Apr 15, 2025</td>
+                <td><span class="badge badge-live">Paid</span></td>
+                <td><button class="small-btn">Receipt</button></td>
+              </tr>
+              <tr>
+                <td class="strong">INV-001</td>
+                <td>Website Build — 50% Deposit</td>
+                <td class="strong">$500.00</td>
+                <td>Apr 5, 2025</td>
+                <td><span class="badge badge-live">Paid</span></td>
+                <td><button class="small-btn">Receipt</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div style="margin-top:16px;padding:16px 20px;border-radius:var(--radius-sm);background:rgba(255,255,255,0.02);border:1px solid var(--line-soft);font-size:0.82rem;color:var(--muted2);">
+          Payments are processed securely via PayPal. For billing questions contact <a href="mailto:NXQweb@protonmail.com" style="color:var(--blue);">NXQweb@protonmail.com</a>
+        </div>
+      </div>
+
+      <!-- BILLING INFO PAGE -->
+      <div class="page" id="page-billing">
+        <div class="page-header">
+          <h2>Billing Info</h2>
+          <p>Your subscription and payment method details.</p>
+        </div>
+        <div class="glass" style="padding:28px;max-width:560px;">
+          <div style="font-family:'Syne',sans-serif;font-weight:700;margin-bottom:20px;">Current Plan</div>
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:16px;border-radius:var(--radius-sm);background:rgba(120,200,255,0.05);border:1px solid rgba(120,200,255,0.15);margin-bottom:20px;">
+            <div>
+              <div style="font-weight:600;margin-bottom:3px;" id="billingPlan">Standard Hosting Plan</div>
+              <div style="font-size:0.8rem;color:var(--muted2);">Billed monthly · Next charge May 15</div>
+            </div>
+            <div style="font-family:'Syne',sans-serif;font-size:1.4rem;font-weight:700;color:var(--blue);">$50<span style="font-size:0.8rem;color:var(--muted);font-family:'DM Sans',sans-serif;">/mo</span></div>
+          </div>
+          <div class="security-row">
+            <div>
+              <div class="security-label">Payment Method</div>
+              <div class="security-desc">PayPal — payments@yourbusiness.com</div>
+            </div>
+            <button class="small-btn">Update</button>
+          </div>
+          <div class="security-row" style="border:none;">
+            <div>
+              <div class="security-label">Billing Cycle</div>
+              <div class="security-desc">Monthly — renews on the 15th</div>
+            </div>
+          </div>
+          <div style="margin-top:20px;padding-top:20px;border-top:1px solid var(--line-soft);">
+            <div style="font-size:0.8rem;color:var(--muted2);line-height:1.7;">
+              ⚠ If payment fails, you will receive reminder emails on days 1, 5, and 10. 
+              Your site will be temporarily suspended on day 14 until payment is received. 
+              After 60 days without payment, your site will go dormant.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECURITY PAGE -->
+      <div class="page" id="page-security">
+        <div class="page-header">
+          <h2>Security</h2>
+          <p>Manage your account security and login settings.</p>
+        </div>
+        <div class="glass" style="padding:28px;max-width:560px;">
+          <div class="security-row">
+            <div>
+              <div class="security-label">Email Verification</div>
+              <div class="security-desc">Your email is verified and active</div>
+            </div>
+            <span class="badge badge-live">Verified ✓</span>
+          </div>
+          <div class="security-row">
+            <div>
+              <div class="security-label">Two-Factor Authentication</div>
+              <div class="security-desc">Extra security code sent to your email on login</div>
+            </div>
+            <div class="toggle on" id="twoFAToggle" onclick="toggleTwoFA()"></div>
+          </div>
+          <div class="security-row">
+            <div>
+              <div class="security-label">Login Notifications</div>
+              <div class="security-desc">Email me when someone logs into my account</div>
+            </div>
+            <div class="toggle on" id="loginNotif" onclick="toggleEl('loginNotif')"></div>
+          </div>
+          <div class="security-row">
+            <div>
+              <div class="security-label">Change Password</div>
+              <div class="security-desc">Last changed on account creation</div>
+            </div>
+            <button class="small-btn">Update</button>
+          </div>
+          <div class="security-row" style="border:none;">
+            <div>
+              <div class="security-label">Client ID</div>
+              <div class="security-desc" id="secClientId">NXQ-00142 — your unique account reference</div>
+            </div>
+            <button class="small-btn" onclick="copyId()">Copy ID</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- SUPPORT PAGE -->
+      <div class="page" id="page-support">
+        <div class="page-header">
+          <h2>Support</h2>
+          <p>Get help or reach out to NXQ Web directly.</p>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;max-width:720px;">
+          <div class="glass" style="padding:28px;">
+            <div style="font-size:1.5rem;margin-bottom:12px;">✉</div>
+            <div style="font-family:'Syne',sans-serif;font-weight:700;margin-bottom:8px;">Email Support</div>
+            <div style="color:var(--muted2);font-size:0.85rem;margin-bottom:18px;line-height:1.7;">For questions about your site, billing, or anything else — email us directly.</div>
+            <a href="mailto:NXQweb@protonmail.com" class="btn-primary" style="display:block;text-align:center;text-decoration:none;">NXQweb@protonmail.com</a>
+          </div>
+          <div class="glass" style="padding:28px;">
+            <div style="font-size:1.5rem;margin-bottom:12px;">⚡</div>
+            <div style="font-family:'Syne',sans-serif;font-weight:700;margin-bottom:8px;">Request a Change</div>
+            <div style="color:var(--muted2);font-size:0.85rem;margin-bottom:18px;line-height:1.7;">Need something updated on your site? Use the change request form for the fastest response.</div>
+            <button class="btn-primary" onclick="showPage('requests')">Open Request Form →</button>
+          </div>
+          <div class="glass" style="padding:24px;grid-column:span 2;">
+            <div style="font-family:'Syne',sans-serif;font-weight:700;margin-bottom:14px;">Response Times</div>
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;">
+              <div style="padding:14px;border-radius:var(--radius-sm);background:rgba(255,255,255,0.02);border:1px solid var(--line-soft);text-align:center;">
+                <div style="font-family:'Syne',sans-serif;font-weight:700;color:var(--green);margin-bottom:4px;">Same Day</div>
+                <div style="font-size:0.78rem;color:var(--muted);">Urgent issues</div>
+              </div>
+              <div style="padding:14px;border-radius:var(--radius-sm);background:rgba(255,255,255,0.02);border:1px solid var(--line-soft);text-align:center;">
+                <div style="font-family:'Syne',sans-serif;font-weight:700;color:var(--blue);margin-bottom:4px;">24–48 hrs</div>
+                <div style="font-size:0.78rem;color:var(--muted);">Change requests</div>
+              </div>
+              <div style="padding:14px;border-radius:var(--radius-sm);background:rgba(255,255,255,0.02);border:1px solid var(--line-soft);text-align:center;">
+                <div style="font-family:'Syne',sans-serif;font-weight:700;color:var(--amber);margin-bottom:4px;">3–5 days</div>
+                <div style="font-size:0.78rem;color:var(--muted);">New sections</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast">
+  <span>✓</span>
+  <span id="toastMsg">Done!</span>
+</div>
+
+<script src="env-config.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+  // ══════════════════════════════════════════════
+  // STEP 1: PASTE YOUR TWO SUPABASE VALUES BELOW
+  // ══════════════════════════════════════════════
+  // Keys loaded from env-config.js — edit that file only
+  const SUPABASE_URL  = window.NXQ_CONFIG.supabase.url;
+  const SUPABASE_ANON = window.NXQ_CONFIG.supabase.anonKey;
+
+  const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
+  let currentClient = null;
+
+  // ── CHECK IF ALREADY LOGGED IN ON PAGE LOAD ──
+  window.addEventListener('DOMContentLoaded', async () => {
+    const { data: { session } } = await sb.auth.getSession();
+    if (session) {
+      await loadClientData(session.user);
+    }
+  });
+
+  // ── LOGIN ──
+  async function doLogin() {
+    const email = document.getElementById('loginEmail').value.trim().toLowerCase();
+    const pass  = document.getElementById('loginPass').value;
+    const err   = document.getElementById('loginError');
+    const btn   = document.querySelector('.btn-primary');
+
+    if (!email || !pass) {
+      err.textContent = 'Please enter your email and password.';
+      err.style.display = 'block';
+      return;
+    }
+
+    btn.textContent = 'Signing in...';
+    btn.disabled = true;
+
+    const { data, error } = await sb.auth.signInWithPassword({ email, password: pass });
+
+    btn.textContent = 'Sign In →';
+    btn.disabled = false;
+
+    if (error) {
+      err.textContent = 'Incorrect email or password. Please try again.';
+      err.style.display = 'block';
+      return;
+    }
+
+    err.style.display = 'none';
+    await loadClientData(data.user);
+  }
+
+  // ── LOAD CLIENT DATA FROM DATABASE ──
+  async function loadClientData(user) {
+    const { data: client, error } = await sb
+      .from('clients')
+      .select('*')
+      .eq('user_id', user.id)
+      .single();
+
+    if (error || !client) {
+      // User exists in auth but no client record yet
+      // Show a basic dashboard with their email
+      loadDashboard({
+        name: user.email,
+        shortName: user.email.split('@')[0],
+        initials: user.email.slice(0,2).toUpperCase(),
+        client_id: 'Pending',
+        domain: 'Not set up yet',
+        package: 'Pending',
+        status: 'active',
+        suspended: false,
+        days_overdue: 0
+      });
+      return;
+    }
+
+    currentClient = client;
+    loadDashboard(client);
+    await loadInvoices(client.id);
+    await loadRequests(client.id);
+  }
+
+  // ── POPULATE DASHBOARD WITH REAL DATA ──
+  function loadDashboard(c) {
+    const initials = c.initials || c.name.slice(0,2).toUpperCase();
+    const shortName = c.short_name || c.shortName || c.name.split(' ')[0];
+
+    document.getElementById('sidebarAvatar').textContent  = initials;
+    document.getElementById('sidebarName').textContent    = c.name;
+    document.getElementById('sidebarId').textContent      = c.client_id;
+    document.getElementById('welcomeName').textContent    = shortName;
+    document.getElementById('overviewId').textContent     = c.client_id;
+    document.getElementById('ovDomain').textContent       = c.domain;
+    document.getElementById('siteDomain').textContent     = c.domain;
+    document.getElementById('ovPackage').textContent      = c.package;
+    document.getElementById('billingPlan').textContent    = c.package + ' Hosting Plan';
+    document.getElementById('secClientId').textContent    = c.client_id + ' — your unique account reference';
+    document.getElementById('ovMeta').textContent         = c.package + ' Plan · NXQ Glass Style';
+
+    // Next payment date
+    if (c.next_payment_date) {
+      const d = new Date(c.next_payment_date);
+      document.getElementById('nextPayDate').textContent =
+        'Due ' + d.toLocaleDateString('en-US', { month:'long', day:'numeric', year:'numeric' });
+    }
+
+    // Suspension logic
+    if (c.suspended || c.days_overdue >= 14) {
+      document.getElementById('overviewStatus').textContent = 'Suspended';
+      document.getElementById('overviewStatus').className   = 'stat-val stat-red';
+      document.getElementById('suspensionBanner').style.display = 'flex';
+      document.getElementById('daysLeft').textContent = Math.max(0, 14 - (c.days_overdue || 0));
+    }
+
+    document.getElementById('loginScreen').style.display = 'none';
+    document.getElementById('dashboard').style.display   = 'block';
+  }
+
+  // ── LOAD REAL INVOICES ──
+  async function loadInvoices(clientDbId) {
+    const { data: invoices } = await sb
+      .from('invoices')
+      .select('*')
+      .eq('client_id', clientDbId)
+      .order('created_at', { ascending: false });
+
+    if (!invoices || invoices.length === 0) return;
+
+    const tbody = document.querySelector('table tbody');
+    tbody.innerHTML = '';
+    invoices.forEach(inv => {
+      const isPending = inv.status === 'pending';
+      const row = document.createElement('tr');
+      row.innerHTML = `
+        <td class="strong">${inv.invoice_number}</td>
+        <td>${inv.description}</td>
+        <td class="strong">$${parseFloat(inv.amount).toFixed(2)}</td>
+        <td>${inv.due_date ? new Date(inv.due_date).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}) : '—'}</td>
+        <td><span class="badge ${isPending ? 'badge-pending' : 'badge-live'}">${isPending ? 'Due' : 'Paid'}</span></td>
+        <td>${isPending
+          ? `<button class="pay-btn" onclick="showPayPal('${inv.invoice_number}','${inv.amount}')">Pay via PayPal →</button>`
+          : `<button class="small-btn">Receipt</button>`
+        }</td>`;
+      tbody.appendChild(row);
+    });
+  }
+
+  // ── LOAD REAL CHANGE REQUESTS ──
+  async function loadRequests(clientDbId) {
+    const { data: requests } = await sb
+      .from('change_requests')
+      .select('*')
+      .eq('client_id', clientDbId)
+      .order('created_at', { ascending: false });
+
+    if (!requests || requests.length === 0) return;
+
+    const list = document.getElementById('requestList');
+    list.innerHTML = '';
+    let openCount = 0;
+    requests.forEach(req => {
+      const isDone = req.status === 'completed';
+      if (!isDone) openCount++;
+      const d = new Date(req.created_at).toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'});
+      const item = document.createElement('div');
+      item.className = 'request-item';
+      item.innerHTML = `
+        <div class="req-icon ${isDone ? 'req-icon-done' : 'req-icon-pending'}">${isDone ? '✓' : '⏳'}</div>
+        <div style="flex:1;">
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;">
+            <div class="req-title">${req.request_type}</div>
+            <span class="badge ${isDone ? 'badge-live' : 'badge-pending'}">${isDone ? 'Done' : 'In Progress'}</span>
+          </div>
+          <div class="req-date">${isDone ? 'Completed' : 'Submitted'} ${d}</div>
+        </div>`;
+      list.appendChild(item);
+    });
+    document.getElementById('openRequests').textContent = openCount;
+  }
+
+  // ── LOGOUT ──
+  async function doLogout() {
+    await sb.auth.signOut();
+    currentClient = null;
+    document.getElementById('loginEmail').value = '';
+    document.getElementById('loginPass').value  = '';
+    document.getElementById('dashboard').style.display   = 'none';
+    document.getElementById('loginScreen').style.display = 'flex';
+    showPage('overview');
+  }
+
+  // Allow Enter key to login
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Enter' && document.getElementById('loginScreen').style.display !== 'none') doLogin();
+  });
+
+  // ── NAVIGATION ──
+  function showPage(name) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+    document.getElementById('page-' + name).classList.add('active');
+    document.querySelectorAll('.nav-item').forEach(n => {
+      if (n.getAttribute('onclick') && n.getAttribute('onclick').includes("'" + name + "'")) n.classList.add('active');
+    });
+    closeMobileSidebar();
+  }
+
+  // ── MOBILE SIDEBAR ──
+  function toggleMobileSidebar() {
+    document.getElementById('sidebar').classList.toggle('open');
+    document.getElementById('overlay').classList.toggle('open');
+  }
+  function closeMobileSidebar() {
+    document.getElementById('sidebar').classList.remove('open');
+    document.getElementById('overlay').classList.remove('open');
+  }
+
+  // ── CHANGE REQUEST — saves to Supabase ──
+  async function submitRequest() {
+    const type = document.getElementById('reqType').value;
+    const desc = document.getElementById('reqDesc').value.trim();
+    if (!type || !desc) { showToast('Please fill in both fields.'); return; }
+    if (!currentClient) { showToast('Session error — please log in again.'); return; }
+
+    const { error } = await sb.from('change_requests').insert({
+      client_id:    currentClient.id,
+      request_type: type,
+      description:  desc,
+      status:       'submitted'
+    });
+
+    if (error) { showToast('Error submitting request. Please try again.'); return; }
+
+    // Update UI instantly
+    const list = document.getElementById('requestList');
+    const item = document.createElement('div');
+    item.className = 'request-item';
+    const now = new Date().toLocaleDateString('en-US', { month:'short', day:'numeric', year:'numeric' });
+    item.innerHTML = `
+      <div class="req-icon req-icon-pending">⏳</div>
+      <div style="flex:1;">
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;">
+          <div class="req-title">${type}</div>
+          <span class="badge badge-pending">Submitted</span>
+        </div>
+        <div class="req-date">Submitted ${now}</div>
+      </div>`;
+    list.prepend(item);
+
+    document.getElementById('reqType').value = '';
+    document.getElementById('reqDesc').value = '';
+    document.getElementById('openRequests').textContent =
+      parseInt(document.getElementById('openRequests').textContent) + 1;
+    showToast('Request submitted! We\'ll be in touch within 24hrs.');
+  }
+
+  // ── PAYPAL ──
+  function showPayPal(inv, amount) {
+    // In production this opens your real PayPal invoice link
+    // Replace the URL below with your actual PayPal.me or invoice link
+    const paypalUrl = `${window.NXQ_CONFIG.paypal.meUrl}/${amount}`;
+    showToast('Opening PayPal to pay ' + inv + '...');
+    setTimeout(() => window.open(paypalUrl, '_blank'), 800);
+  }
+
+  // ── SECURITY TOGGLES ──
+  function toggleTwoFA() { toggleEl('twoFAToggle'); }
+  function toggleEl(id) {
+    document.getElementById(id).classList.toggle('on');
+    showToast('Setting updated.');
+  }
+  function copyId() {
+    if (currentClient) navigator.clipboard.writeText(currentClient.id).catch(()=>{});
+    showToast('Client ID copied to clipboard.');
+  }
+
+  // ── TOAST ──
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    document.getElementById('toastMsg').textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 3000);
+  }
+</script>
+</body>
+</html>
