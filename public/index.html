@@ -361,31 +361,18 @@
     .service-card p { color: var(--muted); font-size: 0.88rem; line-height: 1.75; }
 
     /* PRICING */
+    /* PRICING */
     .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-    .pricing-card { padding: 32px; display: flex; flex-direction: column; }
-    .pricing-card.featured::before {
-      background: linear-gradient(135deg, var(--accent-blue) 0%, rgba(255,255,255,0.1) 35%, var(--accent-purple) 65%, var(--accent-teal) 100%);
-    }
+    .pricing-card { padding: 28px; display: flex; flex-direction: column; gap: 0; }
     .pricing-tier { font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
-    .pricing-price {
-      font-family: 'Syne', sans-serif; font-size: 2.8rem; font-weight: 800;
-      margin-bottom: 4px; line-height: 1;
-    }
-    .pricing-price sup { font-size: 1.2rem; vertical-align: super; }
-    .pricing-note { font-size: 0.8rem; color: var(--muted); margin-bottom: 20px; }
-    .pricing-desc { color: var(--muted); font-size: 0.88rem; line-height: 1.7; margin-bottom: 22px; }
-    .pricing-features { list-style: none; display: flex; flex-direction: column; gap: 10px; margin-bottom: 28px; flex: 1; }
-    .pricing-features li { font-size: 0.88rem; color: var(--muted); padding-left: 20px; position: relative; }
-    .pricing-features li::before { content: ""; position: absolute; left: 0; top: 8px; width: 8px; height: 8px; border-radius: 50%; background: var(--accent-teal); opacity: 0.7; }
+    .pricing-price { font-family: 'Syne', sans-serif; font-size: 2.4rem; font-weight: 800; margin-bottom: 4px; line-height: 1; }
+    .pricing-price sup { font-size: 1.1rem; vertical-align: super; }
+    .pricing-note { font-size: 0.78rem; color: var(--muted); margin-bottom: 14px; }
+    .pricing-desc { color: var(--muted); font-size: 0.86rem; line-height: 1.7; margin-bottom: 18px; }
+    .pricing-features { list-style: none; display: flex; flex-direction: column; gap: 9px; margin-bottom: 24px; flex: 1; }
+    .pricing-features li { font-size: 0.86rem; color: var(--muted); padding-left: 18px; position: relative; }
+    .pricing-features li::before { content: ""; position: absolute; left: 0; top: 8px; width: 7px; height: 7px; border-radius: 50%; background: var(--accent-teal); opacity: 0.7; }
     .pricing-features li strong { color: var(--text); font-weight: 500; }
-    .addon-section { margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--line-soft); }
-    .addon-label { font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; }
-    .addon-chips { display: flex; flex-wrap: wrap; gap: 6px; }
-    .addon-chip {
-      padding: 5px 10px; border-radius: 999px; font-size: 0.75rem;
-      border: 1px solid rgba(255,255,255,0.1); color: var(--muted);
-      background: rgba(255,255,255,0.02);
-    }
     .popular-badge {
       display: inline-block; font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase;
       padding: 5px 12px; border-radius: 999px; margin-bottom: 16px;
@@ -483,7 +470,6 @@
       .pricing-card.featured { grid-column: span 2; order: -1; }
       .process-grid { grid-template-columns: 1fr 1fr; }
       .testi-grid { grid-template-columns: 1fr 1fr; }
-
       .contact-panel { flex-direction: column; align-items: flex-start; padding: 32px 28px; gap: 24px; }
       .contact-actions { width: 100%; }
       .contact-actions .btn { width: 100%; justify-content: center; }
@@ -816,88 +802,211 @@
       <section id="pricing">
         <div class="section-head">
           <div class="eyebrow">Pricing</div>
-          <h2 style="font-family: 'Syne', sans-serif; font-size: clamp(2rem, 3.5vw, 3.2rem); font-weight: 700; line-height: 1.05;">Clear, upfront pricing</h2>
+          <h2 style="font-family: 'Syne', sans-serif; font-size: clamp(2rem, 3.5vw, 3.2rem); font-weight: 700; line-height: 1.05;">One base. Build your perfect site.</h2>
         </div>
-        <div class="pricing-grid">
-          <!-- BASIC -->
-          <article class="glass pricing-card">
-            <div class="pricing-tier">Basic</div>
-            <div class="pricing-price"><sup>$</sup>500<span style="font-size: 1rem; color: var(--muted);">+</span></div>
-            <div class="pricing-note">Starting price · one-time</div>
-            <div class="pricing-desc">Perfect for businesses that need a clean, professional online presence fast.</div>
-            <ul class="pricing-features">
-              <li><strong>1-page website</strong> built in the glass style</li>
-              <li><strong>Mobile responsive</strong> design</li>
-              <li><strong>Contact section</strong> with phone/email CTA</li>
-              <li><strong>Basic SEO setup</strong> so Google can find you</li>
-              <li><strong>Google Maps</strong> embed</li>
-              <li>Delivered within 5–7 days</li>
-            </ul>
-            <div class="addon-section">
-              <div class="addon-label">Available add-ons</div>
-              <div class="addon-chips">
-                <span class="addon-chip">+ Logo design $150</span>
-                <span class="addon-chip">+ Extra section $100</span>
-                <span class="addon-chip">+ Domain setup $50</span>
-              </div>
+
+        <!-- BASE PLAN -->
+        <div class="glass" style="padding: 36px 40px; margin-bottom: 24px; display: grid; grid-template-columns: 1fr auto; gap: 32px; align-items: center;">
+          <div>
+            <div class="popular-badge" style="margin-bottom: 14px;">Everything starts here</div>
+            <h3 style="font-family: 'Syne', sans-serif; font-size: 1.6rem; font-weight: 800; margin-bottom: 10px;">Base Website — <span style="color: var(--accent-blue);">$1,000–$1,500</span></h3>
+            <p style="color: var(--muted); font-size: 0.92rem; line-height: 1.8; max-width: 60ch; margin-bottom: 18px;">Every client starts here. A fully custom 5-page site in the NXQ glass style, built to get found on Google when people search for your service near them.</p>
+            <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+              <span style="padding: 6px 12px; border-radius: 999px; border: 1px solid rgba(50,255,200,0.2); background: rgba(50,255,200,0.06); font-size: 0.78rem; color: var(--accent-teal);">✓ 5-page custom site</span>
+              <span style="padding: 6px 12px; border-radius: 999px; border: 1px solid rgba(50,255,200,0.2); background: rgba(50,255,200,0.06); font-size: 0.78rem; color: var(--accent-teal);">✓ Local SEO built in</span>
+              <span style="padding: 6px 12px; border-radius: 999px; border: 1px solid rgba(50,255,200,0.2); background: rgba(50,255,200,0.06); font-size: 0.78rem; color: var(--accent-teal);">✓ Mobile ready</span>
+              <span style="padding: 6px 12px; border-radius: 999px; border: 1px solid rgba(50,255,200,0.2); background: rgba(50,255,200,0.06); font-size: 0.78rem; color: var(--accent-teal);">✓ Schema markup</span>
+              <span style="padding: 6px 12px; border-radius: 999px; border: 1px solid rgba(50,255,200,0.2); background: rgba(50,255,200,0.06); font-size: 0.78rem; color: var(--accent-teal);">✓ "Near me" search ready</span>
+              <span style="padding: 6px 12px; border-radius: 999px; border: 1px solid rgba(50,255,200,0.2); background: rgba(50,255,200,0.06); font-size: 0.78rem; color: var(--accent-teal);">✓ 7–10 day delivery</span>
             </div>
-            <a class="btn btn-secondary" href="#contact" style="margin-top: 24px; justify-content: center;">Get Started</a>
-          </article>
-          <!-- STANDARD -->
-          <article class="glass pricing-card featured">
-            <div class="popular-badge">Most Popular</div>
-            <div class="pricing-tier">Standard</div>
-            <div class="pricing-price"><sup>$</sup>1,000<span style="font-size: 1rem; color: var(--muted);">–1,500+</span></div>
-            <div class="pricing-note">Starting price · one-time</div>
-            <div class="pricing-desc">A full, multi-section site that shows off your work, builds trust, and converts visitors into customers.</div>
-            <ul class="pricing-features">
-              <li><strong>Multi-section site</strong> (up to 6 sections)</li>
-              <li><strong>Portfolio / work gallery</strong> section</li>
-              <li><strong>Services breakdown</strong> with detail cards</li>
-              <li><strong>Testimonial section</strong> with reviews</li>
-              <li><strong>Advanced local SEO</strong> optimization</li>
-              <li><strong>Contact form</strong> integration</li>
-              <li><strong>Animated interactions</strong> throughout</li>
-              <li>Delivered within 7–10 days</li>
-            </ul>
-            <div class="addon-section">
-              <div class="addon-label">Available add-ons</div>
-              <div class="addon-chips">
-                <span class="addon-chip">+ Blog section $200</span>
-                <span class="addon-chip">+ Booking system $250</span>
-                <span class="addon-chip">+ Logo $150</span>
-                <span class="addon-chip">+ Monthly updates $75/mo</span>
-              </div>
-            </div>
-            <a class="btn btn-primary" href="#contact" style="margin-top: 24px; justify-content: center;">Get Started</a>
-          </article>
-          <!-- PREMIUM -->
-          <article class="glass pricing-card">
-            <div class="pricing-tier">Premium</div>
-            <div class="pricing-price"><sup>$</sup>1,500<span style="font-size: 1rem; color: var(--muted);">+</span></div>
-            <div class="pricing-note">Starting price · custom scope</div>
-            <div class="pricing-desc">A fully custom build for businesses that want to stand out and dominate their local market.</div>
-            <ul class="pricing-features">
-              <li><strong>Everything in Standard</strong></li>
-              <li><strong>Custom animations</strong> and motion design</li>
-              <li><strong>Multi-page site</strong> architecture</li>
-              <li><strong>Full branding package</strong> (logo, colors, fonts)</li>
-              <li><strong>E-commerce or booking</strong> integration</li>
-              <li><strong>Priority delivery</strong> and revisions</li>
-              <li><strong>1 month free</strong> post-launch support</li>
-            </ul>
-            <div class="addon-section">
-              <div class="addon-label">Available add-ons</div>
-              <div class="addon-chips">
-                <span class="addon-chip">+ Ongoing retainer</span>
-                <span class="addon-chip">+ Google Ads setup $300</span>
-                <span class="addon-chip">+ Social media kit $200</span>
-                <span class="addon-chip">+ Analytics setup $100</span>
-              </div>
-            </div>
-            <a class="btn btn-secondary" href="#contact" style="margin-top: 24px; justify-content: center;">Get a Quote</a>
-          </article>
+          </div>
+          <div style="text-align: center; min-width: 160px;">
+            <div style="font-size: 0.75rem; color: var(--muted); margin-bottom: 4px;">Then just</div>
+            <div style="font-family: 'Syne', sans-serif; font-size: 2rem; font-weight: 800; color: var(--accent-teal);">$50<span style="font-size: 0.9rem; color: var(--muted); font-family: 'DM Sans', sans-serif;">/mo</span></div>
+            <div style="font-size: 0.72rem; color: var(--muted); margin-bottom: 20px;">hosting + maintenance</div>
+            <a class="btn btn-primary" href="quote.html" style="justify-content: center; white-space: nowrap;">Get a Free Quote →</a>
+          </div>
         </div>
+
+        <!-- ADD-ONS HEADER -->
+        <div style="text-align: center; margin: 48px 0 28px;">
+          <div class="eyebrow">Power it up</div>
+          <h3 style="font-family: 'Syne', sans-serif; font-size: clamp(1.6rem, 2.5vw, 2.4rem); font-weight: 700; margin-top: 10px;">Add-on Packages</h3>
+          <p style="color: var(--muted); font-size: 0.92rem; margin-top: 10px;">Each one plugs into your base site. Mix and match what your business needs.</p>
+        </div>
+
+        <!-- ADD-ONS GRID -->
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-bottom: 20px;">
+
+          <!-- AI CHATBOT -->
+          <article class="glass pricing-card">
+            <div style="font-size: 1.6rem; margin-bottom: 14px;">🤖</div>
+            <div class="pricing-tier">AI Chatbot</div>
+            <div class="pricing-price" style="font-size: 2rem;"><sup>$</sup>500</div>
+            <div class="pricing-note">setup · then $100/mo</div>
+            <div class="pricing-desc">A 24/7 AI assistant trained on your business — answers questions, captures leads, and books clients while you sleep.</div>
+            <ul class="pricing-features">
+              <li><strong>Trained</strong> on your services & FAQs</li>
+              <li><strong>Lead capture</strong> built in</li>
+              <li><strong>Spam protected</strong> — cost capped</li>
+              <li><strong>Works on any device</strong></li>
+            </ul>
+            <a class="btn btn-secondary" href="quote.html" style="margin-top: auto; justify-content: center;">Add to My Site</a>
+          </article>
+
+          <!-- E-COMMERCE -->
+          <article class="glass pricing-card">
+            <div style="font-size: 1.6rem; margin-bottom: 14px;">🛒</div>
+            <div class="pricing-tier">Online Store</div>
+            <div class="pricing-price" style="font-size: 2rem;"><sup>$</sup>1,000</div>
+            <div class="pricing-note">setup · then $50/mo</div>
+            <div class="pricing-desc">Sell products or services directly from your site with a custom branded checkout — no generic third-party pages.</div>
+            <ul class="pricing-features">
+              <li><strong>PayPal</strong> checkout integration</li>
+              <li><strong>Product catalog</strong> management</li>
+              <li><strong>Secure checkout</strong> experience</li>
+              <li><strong>Order notifications</strong> to you</li>
+            </ul>
+            <a class="btn btn-secondary" href="quote.html" style="margin-top: auto; justify-content: center;">Add to My Site</a>
+          </article>
+
+          <!-- BOOKING -->
+          <article class="glass pricing-card">
+            <div style="font-size: 1.6rem; margin-bottom: 14px;">📅</div>
+            <div class="pricing-tier">Booking System</div>
+            <div class="pricing-price" style="font-size: 2rem;"><sup>$</sup>500</div>
+            <div class="pricing-note">setup · then $50/mo</div>
+            <div class="pricing-desc">Let customers book appointments online 24/7. No more phone tag — your calendar fills itself.</div>
+            <ul class="pricing-features">
+              <li><strong>Online scheduling</strong> form</li>
+              <li><strong>Email confirmations</strong> auto-sent</li>
+              <li><strong>Calendar sync</strong> ready</li>
+              <li><strong>Custom availability</strong> hours</li>
+            </ul>
+            <a class="btn btn-secondary" href="quote.html" style="margin-top: auto; justify-content: center;">Add to My Site</a>
+          </article>
+
+          <!-- BLOG -->
+          <article class="glass pricing-card">
+            <div style="font-size: 1.6rem; margin-bottom: 14px;">✍️</div>
+            <div class="pricing-tier">Blog Section</div>
+            <div class="pricing-price" style="font-size: 2rem;"><sup>$</sup>300</div>
+            <div class="pricing-note">setup · then $30/mo</div>
+            <div class="pricing-desc">An SEO-optimized blog that helps you rank higher on Google over time. More content = more search visibility.</div>
+            <ul class="pricing-features">
+              <li><strong>SEO-structured</strong> posts</li>
+              <li><strong>Local keyword</strong> targeting</li>
+              <li><strong>Easy to update</strong> content</li>
+              <li><strong>Google-crawlable</strong> structure</li>
+            </ul>
+            <a class="btn btn-secondary" href="quote.html" style="margin-top: auto; justify-content: center;">Add to My Site</a>
+          </article>
+
+          <!-- GOOGLE ADS -->
+          <article class="glass pricing-card">
+            <div style="font-size: 1.6rem; margin-bottom: 14px;">📢</div>
+            <div class="pricing-tier">Google Ads</div>
+            <div class="pricing-price" style="font-size: 2rem;"><sup>$</sup>200</div>
+            <div class="pricing-note">setup · then $100/mo management</div>
+            <div class="pricing-desc">Get your business in front of people actively searching for your service right now — not just organically.</div>
+            <ul class="pricing-features">
+              <li><strong>Campaign setup</strong> and targeting</li>
+              <li><strong>Local area</strong> ad targeting</li>
+              <li><strong>Monthly reporting</strong> to you</li>
+              <li><strong>Ad budget</strong> you control</li>
+            </ul>
+            <a class="btn btn-secondary" href="quote.html" style="margin-top: auto; justify-content: center;">Add to My Site</a>
+          </article>
+
+          <!-- SEO BOOSTER -->
+          <article class="glass pricing-card">
+            <div style="font-size: 1.6rem; margin-bottom: 14px;">🚀</div>
+            <div class="pricing-tier">SEO Booster</div>
+            <div class="pricing-price" style="font-size: 2rem;"><sup>$</sup>200</div>
+            <div class="pricing-note">one-time</div>
+            <div class="pricing-desc">Advanced local SEO setup including Google Business Profile, keyword targeting, and map pack optimization.</div>
+            <ul class="pricing-features">
+              <li><strong>Google Business</strong> Profile setup</li>
+              <li><strong>Map pack</strong> optimization</li>
+              <li><strong>Keyword research</strong> for your area</li>
+              <li><strong>Citation building</strong> across directories</li>
+            </ul>
+            <a class="btn btn-secondary" href="quote.html" style="margin-top: auto; justify-content: center;">Add to My Site</a>
+          </article>
+
+          <!-- LOGO -->
+          <article class="glass pricing-card">
+            <div style="font-size: 1.6rem; margin-bottom: 14px;">🎨</div>
+            <div class="pricing-tier">Logo & Branding</div>
+            <div class="pricing-price" style="font-size: 2rem;"><sup>$</sup>150</div>
+            <div class="pricing-note">one-time</div>
+            <div class="pricing-desc">A custom logo, color palette, and font set that makes your business look like the obvious professional choice.</div>
+            <ul class="pricing-features">
+              <li><strong>Custom logo</strong> design</li>
+              <li><strong>Color palette</strong> for your brand</li>
+              <li><strong>Font selection</strong> and style guide</li>
+              <li><strong>All file formats</strong> delivered</li>
+            </ul>
+            <a class="btn btn-secondary" href="quote.html" style="margin-top: auto; justify-content: center;">Add to My Site</a>
+          </article>
+
+          <!-- SOCIAL MEDIA KIT -->
+          <article class="glass pricing-card">
+            <div style="font-size: 1.6rem; margin-bottom: 14px;">📱</div>
+            <div class="pricing-tier">Social Media Kit</div>
+            <div class="pricing-price" style="font-size: 2rem;"><sup>$</sup>150</div>
+            <div class="pricing-note">setup · then $50/mo</div>
+            <div class="pricing-desc">Branded post templates, profile covers, and bio setup so your social pages match your site and look professional.</div>
+            <ul class="pricing-features">
+              <li><strong>Branded post</strong> templates</li>
+              <li><strong>Profile cover</strong> photos</li>
+              <li><strong>Bio optimization</strong> across platforms</li>
+              <li><strong>Monthly content</strong> templates</li>
+            </ul>
+            <a class="btn btn-secondary" href="quote.html" style="margin-top: auto; justify-content: center;">Add to My Site</a>
+          </article>
+
+          <!-- MONTHLY UPDATES -->
+          <article class="glass pricing-card">
+            <div style="font-size: 1.6rem; margin-bottom: 14px;">🔄</div>
+            <div class="pricing-tier">Monthly Updates</div>
+            <div class="pricing-price" style="font-size: 2rem;"><sup>$</sup>50</div>
+            <div class="pricing-note">per month</div>
+            <div class="pricing-desc">Need to change your hours, add a new service, or update photos? We handle all content changes for you every month.</div>
+            <ul class="pricing-features">
+              <li><strong>Unlimited</strong> text changes</li>
+              <li><strong>Photo</strong> updates</li>
+              <li><strong>New service</strong> additions</li>
+              <li><strong>Priority</strong> turnaround</li>
+            </ul>
+            <a class="btn btn-secondary" href="quote.html" style="margin-top: auto; justify-content: center;">Add to My Site</a>
+          </article>
+
+        </div>
+
+        <!-- BUNDLE -->
+        <div class="glass" style="padding: 32px 36px; background: rgba(120,200,255,0.03); border-color: rgba(120,200,255,0.18);">
+          <div style="display: grid; grid-template-columns: 1fr auto; gap: 24px; align-items: center;">
+            <div>
+              <div class="popular-badge" style="background: rgba(120,200,255,0.1); border-color: rgba(120,200,255,0.25); color: var(--accent-blue); margin-bottom: 12px;">⚡ Best Value Bundle</div>
+              <h3 style="font-family: 'Syne', sans-serif; font-size: 1.4rem; font-weight: 800; margin-bottom: 8px;">AI Chatbot + Online Store + Booking System</h3>
+              <p style="color: var(--muted); font-size: 0.88rem; line-height: 1.7; max-width: 55ch;">Get all three together and save $50/month vs buying separately. The ultimate toolkit for a local business that wants to run on autopilot.</p>
+              <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px;">
+                <span style="padding: 5px 12px; border-radius: 999px; border: 1px solid rgba(120,200,255,0.2); font-size: 0.78rem; color: var(--muted);">🤖 AI Chatbot</span>
+                <span style="padding: 5px 12px; border-radius: 999px; border: 1px solid rgba(120,200,255,0.2); font-size: 0.78rem; color: var(--muted);">🛒 Online Store</span>
+                <span style="padding: 5px 12px; border-radius: 999px; border: 1px solid rgba(120,200,255,0.2); font-size: 0.78rem; color: var(--muted);">📅 Booking System</span>
+                <span style="padding: 5px 12px; border-radius: 999px; border: 1px solid rgba(50,255,200,0.2); font-size: 0.78rem; color: var(--accent-teal);">Save $50/mo</span>
+              </div>
+            </div>
+            <div style="text-align: center; min-width: 180px;">
+              <div style="font-family: 'Syne', sans-serif; font-size: 2.4rem; font-weight: 800; color: var(--accent-blue);">$1,500</div>
+              <div style="font-size: 0.82rem; color: var(--muted); margin-bottom: 4px;">setup · then</div>
+              <div style="font-family: 'Syne', sans-serif; font-size: 1.4rem; font-weight: 700; color: var(--accent-teal); margin-bottom: 18px;">$300/mo</div>
+              <a class="btn btn-primary" href="quote.html" style="justify-content: center; white-space: nowrap;">Get This Bundle →</a>
+            </div>
+          </div>
+        </div>
+
       </section>
 
       <!-- PROCESS -->
