@@ -21,8 +21,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #030912;
-      --bg-2: #080f1e;
+      --bg: #04030f;
+      --bg-2: #07061a;
       --text: #eef4ff;
       --muted: #9aafd4;
       --line: rgba(255,255,255,0.13);
@@ -40,7 +40,7 @@
     body {
       font-family: 'DM Sans', system-ui, sans-serif;
       color: var(--text);
-      background: #030912;
+      background: #04030f;
       min-height: 100vh;
       overflow-x: hidden;
       line-height: 1.6;
@@ -55,50 +55,108 @@
       filter: blur(90px); opacity: 0.38;
       animation: drift 18s ease-in-out infinite alternate;
     }
-    .orb-1 { width: 500px; height: 500px; background: rgba(80,120,255,0.18); top: -10%; left: -8%; animation-delay: 0s; }
-    .orb-2 { width: 420px; height: 420px; background: rgba(160,80,255,0.14); top: 30%; right: -10%; animation-delay: -6s; }
-    .orb-3 { width: 380px; height: 380px; background: rgba(40,220,180,0.10); bottom: 10%; left: 30%; animation-delay: -12s; }
-    .orb-4 { width: 280px; height: 280px; background: rgba(80,120,255,0.10); bottom: -5%; right: 15%; animation-delay: -4s; }
-    @keyframes drift {
-      from { transform: translate(0, 0) scale(1); }
-      to { transform: translate(30px, 20px) scale(1.06); }
+    /* SPACE STARS */
+    .orb { display: none; }
+    .orb-1, .orb-2, .orb-3, .orb-4 { display: none; }
+    .grid-lines { display: none; }
+
+    /* NEBULA CLOUDS */
+    .nebula {
+      position: absolute; border-radius: 50%;
+      filter: blur(85px); pointer-events: none;
+      animation: nebulaDrift 22s ease-in-out infinite alternate;
     }
-    .grid-lines {
-      position: absolute; inset: 0;
-      background-image:
-        linear-gradient(rgba(255,255,255,0.018) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,0.018) 1px, transparent 1px);
-      background-size: 60px 60px;
+    .nebula-1 {
+      width: 800px; height: 600px;
+      background: radial-gradient(ellipse, rgba(100,40,200,0.4) 0%, rgba(60,20,140,0.18) 45%, transparent 70%);
+      top: -8%; left: -12%; animation-delay: 0s;
+    }
+    .nebula-2 {
+      width: 700px; height: 700px;
+      background: radial-gradient(ellipse, rgba(30,50,200,0.3) 0%, rgba(20,30,160,0.12) 50%, transparent 70%);
+      top: 15%; right: -18%; animation-delay: -8s;
+    }
+    .nebula-3 {
+      width: 600px; height: 450px;
+      background: radial-gradient(ellipse, rgba(140,30,180,0.25) 0%, rgba(100,20,140,0.10) 50%, transparent 70%);
+      bottom: 5%; left: 20%; animation-delay: -15s;
+    }
+    .nebula-4 {
+      width: 450px; height: 350px;
+      background: radial-gradient(ellipse, rgba(20,90,200,0.22) 0%, rgba(10,60,160,0.08) 50%, transparent 70%);
+      bottom: -8%; right: 8%; animation-delay: -5s;
+    }
+    @keyframes nebulaDrift {
+      from { transform: translate(0,0) scale(1); opacity: 0.85; }
+      to { transform: translate(18px,12px) scale(1.04); opacity: 1; }
     }
 
-    /* GLASS CARD */
+    /* STARS */
+    .stars {
+      position: absolute; inset: 0; pointer-events: none;
+      background-image:
+        radial-gradient(1px 1px at 8% 12%, rgba(255,255,255,0.95) 0%,transparent 100%),
+        radial-gradient(1px 1px at 22% 38%, rgba(255,255,255,0.8) 0%,transparent 100%),
+        radial-gradient(1px 1px at 37% 7%, rgba(255,255,255,0.9) 0%,transparent 100%),
+        radial-gradient(1px 1px at 52% 52%, rgba(255,255,255,0.7) 0%,transparent 100%),
+        radial-gradient(1px 1px at 68% 20%, rgba(255,255,255,0.95) 0%,transparent 100%),
+        radial-gradient(1px 1px at 83% 67%, rgba(255,255,255,0.8) 0%,transparent 100%),
+        radial-gradient(1px 1px at 14% 78%, rgba(255,255,255,0.85) 0%,transparent 100%),
+        radial-gradient(1px 1px at 91% 9%, rgba(255,255,255,0.7) 0%,transparent 100%),
+        radial-gradient(1px 1px at 44% 88%, rgba(255,255,255,0.9) 0%,transparent 100%),
+        radial-gradient(1px 1px at 76% 43%, rgba(255,255,255,0.75) 0%,transparent 100%),
+        radial-gradient(1px 1px at 3% 55%, rgba(200,180,255,0.9) 0%,transparent 100%),
+        radial-gradient(1px 1px at 60% 15%, rgba(180,200,255,0.85) 0%,transparent 100%),
+        radial-gradient(1px 1px at 29% 62%, rgba(255,255,255,0.8) 0%,transparent 100%),
+        radial-gradient(1px 1px at 95% 82%, rgba(200,220,255,0.9) 0%,transparent 100%),
+        radial-gradient(1px 1px at 18% 92%, rgba(255,255,255,0.7) 0%,transparent 100%),
+        radial-gradient(1.5px 1.5px at 47% 32%, rgba(220,200,255,0.95) 0%,transparent 100%),
+        radial-gradient(1.5px 1.5px at 72% 72%, rgba(200,220,255,0.9) 0%,transparent 100%),
+        radial-gradient(1.5px 1.5px at 11% 45%, rgba(255,240,255,0.85) 0%,transparent 100%),
+        radial-gradient(2px 2px at 85% 30%, rgba(255,255,255,1) 0%,transparent 100%),
+        radial-gradient(2px 2px at 33% 18%, rgba(220,240,255,0.95) 0%,transparent 100%),
+        radial-gradient(1px 1px at 56% 75%, rgba(255,255,255,0.8) 0%,transparent 100%),
+        radial-gradient(1px 1px at 40% 95%, rgba(200,180,255,0.7) 0%,transparent 100%),
+        radial-gradient(1px 1px at 6% 25%, rgba(255,255,255,0.9) 0%,transparent 100%),
+        radial-gradient(1px 1px at 77% 58%, rgba(180,200,255,0.85) 0%,transparent 100%),
+        radial-gradient(1px 1px at 62% 42%, rgba(255,255,255,0.75) 0%,transparent 100%);
+      animation: twinkle 5s ease-in-out infinite alternate;
+    }
+    @keyframes twinkle {
+      from { opacity: 0.7; }
+      to { opacity: 1; }
+    }
+
+    /* TRUE CLEAR GLASS CARD */
     .glass {
       position: relative;
-      background: rgba(255,255,255,0.007);
-      border: 1px solid var(--line-soft);
+      background: rgba(255,255,255,0.04);
+      backdrop-filter: blur(20px) saturate(160%);
+      -webkit-backdrop-filter: blur(20px) saturate(160%);
+      border: 1px solid rgba(255,255,255,0.13);
       border-radius: var(--radius);
       overflow: hidden;
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.1),
+        0 8px 32px rgba(0,0,0,0.35),
+        0 0 0 0.5px rgba(255,255,255,0.04);
     }
     .glass::before {
       content: "";
-      position: absolute; inset: 0;
-      padding: 1px;
-      border-radius: inherit;
-      background: linear-gradient(135deg, var(--edge-a) 0%, rgba(255,255,255,0.1) 35%, var(--edge-b) 65%, var(--edge-c) 100%);
+      position: absolute; inset: 0; padding: 1px; border-radius: inherit;
+      background: linear-gradient(135deg,
+        rgba(180,140,255,0.55) 0%,
+        rgba(255,255,255,0.07) 30%,
+        rgba(120,200,255,0.45) 65%,
+        rgba(50,255,200,0.35) 100%);
       -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-      -webkit-mask-composite: xor;
-      mask-composite: exclude;
-      pointer-events: none;
+      -webkit-mask-composite: xor; mask-composite: exclude; pointer-events: none;
     }
     .glass::after {
-      content: "";
-      position: absolute; inset: 0;
-      border-radius: inherit;
-      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.02), 0 0 28px rgba(120,180,255,0.07), 0 0 48px rgba(160,80,255,0.04);
-      pointer-events: none;
+      content: ""; position: absolute; top: 0; left: 0; right: 0; height: 45%;
+      background: linear-gradient(180deg, rgba(255,255,255,0.055) 0%, transparent 100%);
+      border-radius: inherit; pointer-events: none;
     }
-
-    /* LAYOUT */
     .wrap { width: min(1160px, calc(100% - 32px)); margin-inline: auto; }
 
     /* HEADER */
@@ -487,11 +545,11 @@
 <body>
 
   <div class="scene">
-    <div class="grid-lines"></div>
-    <div class="orb orb-1"></div>
-    <div class="orb orb-2"></div>
-    <div class="orb orb-3"></div>
-    <div class="orb orb-4"></div>
+    <div class="stars"></div>
+    <div class="nebula nebula-1"></div>
+    <div class="nebula nebula-2"></div>
+    <div class="nebula nebula-3"></div>
+    <div class="nebula nebula-4"></div>
   </div>
 
   <!-- HEADER -->
@@ -530,7 +588,7 @@
           <h1>Your next customer is searching for you <em>right now.</em></h1>
           <p>When someone types "tree service near me" or "barber shop in [city]," your business needs to show up. I build modern, high-converting websites that get local businesses found — and make them look like the obvious choice.</p>
           <div class="hero-actions">
-            <a class="btn btn-primary" href="#contact">Start a Project</a>
+            <a class="btn btn-primary" href="quote.html">Get a Free Quote →</a>
             <a class="btn btn-secondary" href="#work">See My Work</a>
           </div>
           <div class="hero-stats">
@@ -960,7 +1018,7 @@
             <p>Reach out and I'll put together a modern mockup for your business. No commitment — just a look at what your site could be.</p>
           </div>
           <div class="contact-actions">
-            <a class="btn btn-primary" href="mailto:NXQweb@protonmail.com" style="justify-content: center;">NXQweb@protonmail.com</a>
+            <a class="btn btn-primary" href="quote.html" style="justify-content: center;">Get a Free Quote →</a>
             <button class="btn btn-secondary" id="copyBtn" style="justify-content: center;">Copy Email</button>
           </div>
         </div>
