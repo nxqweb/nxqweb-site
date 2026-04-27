@@ -358,18 +358,53 @@
     .service-card p { color: var(--muted); font-size: 0.88rem; line-height: 1.75; }
 
     /* PRICING */
-    /* PRICING */
-    .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-    .pricing-card { padding: 28px; display: flex; flex-direction: column; gap: 0; }
-    .pricing-tier { font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
-    .pricing-price { font-family: 'Syne', sans-serif; font-size: 2.4rem; font-weight: 800; margin-bottom: 4px; line-height: 1; }
-    .pricing-price sup { font-size: 1.1rem; vertical-align: super; }
-    .pricing-note { font-size: 0.78rem; color: var(--muted); margin-bottom: 14px; }
-    .pricing-desc { color: var(--muted); font-size: 0.86rem; line-height: 1.7; margin-bottom: 18px; }
-    .pricing-features { list-style: none; display: flex; flex-direction: column; gap: 9px; margin-bottom: 24px; flex: 1; }
-    .pricing-features li { font-size: 0.86rem; color: var(--muted); padding-left: 18px; position: relative; }
-    .pricing-features li::before { content: ""; position: absolute; left: 0; top: 8px; width: 7px; height: 7px; border-radius: 50%; background: var(--accent-teal); opacity: 0.7; }
-    .pricing-features li strong { color: var(--text); font-weight: 500; }
+    .tier-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; }
+    .tier-card {
+      padding: 26px 20px; display: flex; flex-direction: column; gap: 0;
+      position: relative; overflow: hidden; transition: transform 0.22s;
+    }
+    .tier-card:hover { transform: translateY(-5px); }
+    .tier-card.featured {
+      background: rgba(50,255,200,0.04);
+      border-color: rgba(50,255,200,0.22);
+    }
+    .tier-label {
+      font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 8px; font-weight: 600;
+    }
+    .tier-name {
+      font-family: 'Syne', sans-serif; font-size: 1.25rem; font-weight: 800;
+      margin-bottom: 16px; line-height: 1.1; color: var(--text);
+    }
+    .tier-build {
+      font-size: 0.78rem; color: var(--muted); margin-bottom: 6px;
+      padding: 6px 10px; border-radius: 8px; background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.07);
+    }
+    .tier-build span { color: var(--accent-blue); font-weight: 600; }
+    .tier-price {
+      font-family: 'Syne', sans-serif; font-size: 2.2rem; font-weight: 800;
+      line-height: 1; margin: 14px 0 2px;
+    }
+    .tier-price sup { font-size: 1rem; vertical-align: super; }
+    .tier-price-note { font-size: 0.76rem; color: var(--muted); margin-bottom: 18px; }
+    .tier-features {
+      list-style: none; display: flex; flex-direction: column; gap: 8px;
+      margin-bottom: 22px; flex: 1;
+    }
+    .tier-features li {
+      font-size: 0.82rem; color: var(--muted); padding-left: 16px;
+      position: relative; line-height: 1.5;
+    }
+    .tier-features li::before {
+      content: ""; position: absolute; left: 0; top: 7px;
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--accent-teal); opacity: 0.7;
+    }
+    .tier-features li strong { color: var(--text); font-weight: 500; }
+    .tier-divider {
+      height: 1px; background: var(--line-soft); margin: 12px 0;
+    }
     .popular-badge {
       display: inline-block; font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase;
       padding: 5px 12px; border-radius: 999px; margin-bottom: 16px;
@@ -445,6 +480,7 @@
       .project.featured { grid-column: span 2; }
       .project.featured .project-preview { height: 260px; }
       /* Add-ons grid stays 3-col until 780 */
+      .tier-grid { grid-template-columns: repeat(3, 1fr); }
     }
 
     /* TABLET PORTRAIT (≤780px) */
@@ -468,9 +504,9 @@
       .project.featured { grid-column: span 1; }
       .project.featured .project-preview { height: 200px; }
 
-      /* Add-ons go 2-col on tablet */
+      /* Tiers go 2-col on tablet */
       .services-grid { grid-template-columns: 1fr 1fr; }
-      .pricing-grid { grid-template-columns: 1fr 1fr; }
+      .tier-grid { grid-template-columns: 1fr 1fr; }
       .process-grid { grid-template-columns: 1fr 1fr; }
       .testi-grid { grid-template-columns: 1fr 1fr; }
 
@@ -509,13 +545,13 @@
 
       /* Everything single column on mobile */
       .services-grid { grid-template-columns: 1fr; }
-      .pricing-grid { grid-template-columns: 1fr; }
+      .tier-grid { grid-template-columns: 1fr; }
       .process-grid { grid-template-columns: 1fr; }
       .testi-grid { grid-template-columns: 1fr; }
       .about-grid { grid-template-columns: 1fr; }
 
       /* Card padding reduction */
-      .pricing-card { padding: 22px 18px; }
+      .tier-card { padding: 20px 16px; }
       .service-card { padding: 20px 18px; }
       .step-card { padding: 20px 18px; }
       .testi-card { padding: 20px 18px; }
@@ -832,208 +868,122 @@
       <section id="pricing">
         <div class="section-head">
           <div class="eyebrow">Pricing</div>
-          <h2 style="font-family: 'Syne', sans-serif; font-size: clamp(2rem, 3.5vw, 3.2rem); font-weight: 700; line-height: 1.05;">One base. Build your perfect site.</h2>
+          <h2 style="font-family: 'Syne', sans-serif; font-size: clamp(2rem, 3.5vw, 3.2rem); font-weight: 700; line-height: 1.05;">One build. Five tiers. You pick your level.</h2>
+          <p style="color: var(--muted); font-size: 0.96rem; max-width: 54ch; margin: 14px auto 0; text-align: center; line-height: 1.75;">Every site starts with a one-time build fee, then you choose a monthly plan that fits what your business actually needs. Upgrade anytime.</p>
         </div>
 
-        <!-- BASE PLAN -->
-        <div class="glass" style="padding: 36px 40px; margin-bottom: 24px; display: grid; grid-template-columns: 1fr auto; gap: 32px; align-items: center;">
-          <div>
-            <div class="popular-badge" style="margin-bottom: 14px;">Everything starts here</div>
-            <h3 style="font-family: 'Syne', sans-serif; font-size: 1.6rem; font-weight: 800; margin-bottom: 10px;">Base Website — <span style="color: var(--accent-blue);">$1,000–$1,500</span></h3>
-            <p style="color: var(--muted); font-size: 0.92rem; line-height: 1.8; max-width: 60ch; margin-bottom: 18px;">Every client starts here. A fully custom 5-page site in the NXQ glass style, built to get found on Google when people search for your service near them.</p>
-            <div style="display: flex; flex-wrap: wrap; gap: 8px;">
-              <span style="padding: 6px 12px; border-radius: 999px; border: 1px solid rgba(50,255,200,0.2); background: rgba(50,255,200,0.06); font-size: 0.78rem; color: var(--accent-teal);">✓ 5-page custom site</span>
-              <span style="padding: 6px 12px; border-radius: 999px; border: 1px solid rgba(50,255,200,0.2); background: rgba(50,255,200,0.06); font-size: 0.78rem; color: var(--accent-teal);">✓ Local SEO built in</span>
-              <span style="padding: 6px 12px; border-radius: 999px; border: 1px solid rgba(50,255,200,0.2); background: rgba(50,255,200,0.06); font-size: 0.78rem; color: var(--accent-teal);">✓ Mobile ready</span>
-              <span style="padding: 6px 12px; border-radius: 999px; border: 1px solid rgba(50,255,200,0.2); background: rgba(50,255,200,0.06); font-size: 0.78rem; color: var(--accent-teal);">✓ Schema markup</span>
-              <span style="padding: 6px 12px; border-radius: 999px; border: 1px solid rgba(50,255,200,0.2); background: rgba(50,255,200,0.06); font-size: 0.78rem; color: var(--accent-teal);">✓ "Near me" search ready</span>
-              <span style="padding: 6px 12px; border-radius: 999px; border: 1px solid rgba(50,255,200,0.2); background: rgba(50,255,200,0.06); font-size: 0.78rem; color: var(--accent-teal);">✓ 7–10 day delivery</span>
-            </div>
-          </div>
-          <div style="text-align: center; min-width: 160px;">
-            <div style="font-size: 0.75rem; color: var(--muted); margin-bottom: 4px;">Then just</div>
-            <div style="font-family: 'Syne', sans-serif; font-size: 2rem; font-weight: 800; color: var(--accent-teal);">$50<span style="font-size: 0.9rem; color: var(--muted); font-family: 'DM Sans', sans-serif;">/mo</span></div>
-            <div style="font-size: 0.72rem; color: var(--muted); margin-bottom: 20px;">hosting + maintenance</div>
-            <a class="btn btn-primary" href="quote.html" style="justify-content: center; white-space: nowrap;">Get a Free Quote →</a>
-          </div>
-        </div>
+        <!-- TIER CARDS -->
+        <div class="tier-grid">
 
-        <!-- ADD-ONS HEADER -->
-        <div style="text-align: center; margin: 48px 0 28px;">
-          <div class="eyebrow">Power it up</div>
-          <h3 style="font-family: 'Syne', sans-serif; font-size: clamp(1.6rem, 2.5vw, 2.4rem); font-weight: 700; margin-top: 10px;">Add-on Packages</h3>
-          <p style="color: var(--muted); font-size: 0.92rem; margin-top: 10px;">Each one plugs into your base site. Mix and match what your business needs.</p>
-        </div>
+          <!-- STARTER -->
+          <article class="glass tier-card">
+            <div class="tier-label">Tier 01</div>
+            <div class="tier-name">Starter</div>
+            <div class="tier-build">Build fee <span>$800</span></div>
+            <div class="tier-divider"></div>
+            <div class="tier-price" style="color: var(--accent-blue);"><sup>$</sup>50</div>
+            <div class="tier-price-note">per month · hosting</div>
+            <ul class="tier-features">
+              <li><strong>5-page</strong> custom site</li>
+              <li><strong>Local SEO</strong> built in</li>
+              <li><strong>Mobile</strong> responsive</li>
+              <li><strong>SSL</strong> + uptime monitoring</li>
+              <li><strong>Custom domain</strong> management</li>
+              <li><strong>Minor</strong> content updates</li>
+            </ul>
+            <a class="btn btn-secondary" href="quote.html" style="margin-top: auto; justify-content: center;">Get Started →</a>
+          </article>
 
-        <!-- ADD-ONS GRID -->
-        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-bottom: 20px;">
+          <!-- STARTER+ -->
+          <article class="glass tier-card">
+            <div class="tier-label">Tier 02</div>
+            <div class="tier-name">Starter+</div>
+            <div class="tier-build">Build fee <span>$1,000</span></div>
+            <div class="tier-divider"></div>
+            <div class="tier-price" style="color: var(--accent-blue);"><sup>$</sup>75</div>
+            <div class="tier-price-note">per month · hosting + SEO</div>
+            <ul class="tier-features">
+              <li><strong>Everything</strong> in Starter</li>
+              <li><strong>SEO monitoring</strong> ongoing</li>
+              <li><strong>Monthly content</strong> updates</li>
+              <li><strong>Google ranking</strong> tracking</li>
+              <li><strong>"Near me"</strong> keyword tuning</li>
+              <li><strong>Schema markup</strong> maintained</li>
+            </ul>
+            <a class="btn btn-secondary" href="quote.html" style="margin-top: auto; justify-content: center;">Get Started →</a>
+          </article>
 
-          <!-- AI CHATBOT -->
-          <article class="glass pricing-card">
-            <div style="font-size: 1.6rem; margin-bottom: 14px;">🤖</div>
-            <div class="pricing-tier">AI Chatbot</div>
-            <div class="pricing-price" style="font-size: 2rem;"><sup>$</sup>500</div>
-            <div class="pricing-note">setup · then $100/mo</div>
-            <div class="pricing-desc">A 24/7 AI assistant trained on your business — answers questions, captures leads, and books clients while you sleep.</div>
-            <ul class="pricing-features">
-              <li><strong>Trained</strong> on your services & FAQs</li>
-              <li><strong>Lead capture</strong> built in</li>
+          <!-- GROWTH -->
+          <article class="glass tier-card featured">
+            <div class="popular-badge" style="margin-bottom: 10px;">⚡ Most Popular</div>
+            <div class="tier-label">Tier 03</div>
+            <div class="tier-name">Growth</div>
+            <div class="tier-build">Build fee <span>$1,200</span></div>
+            <div class="tier-divider"></div>
+            <div class="tier-price" style="color: var(--accent-teal);"><sup>$</sup>100</div>
+            <div class="tier-price-note">per month · hosting + AI</div>
+            <ul class="tier-features">
+              <li><strong>Everything</strong> in Starter+</li>
+              <li><strong>AI Chatbot</strong> — 24/7 lead capture</li>
+              <li>Trained on <strong>your business</strong></li>
               <li><strong>Spam protected</strong> — cost capped</li>
-              <li><strong>Works on any device</strong></li>
+              <li><strong>Lead capture</strong> built in</li>
+              <li><strong>Works</strong> on every device</li>
             </ul>
-            <a class="btn btn-secondary" href="quote.html" style="margin-top: auto; justify-content: center;">Add to My Site</a>
+            <a class="btn btn-primary" href="quote.html" style="margin-top: auto; justify-content: center;">Get Started →</a>
           </article>
 
-          <!-- E-COMMERCE -->
-          <article class="glass pricing-card">
-            <div style="font-size: 1.6rem; margin-bottom: 14px;">🛒</div>
-            <div class="pricing-tier">Online Store</div>
-            <div class="pricing-price" style="font-size: 2rem;"><sup>$</sup>1,000</div>
-            <div class="pricing-note">setup · then $50/mo</div>
-            <div class="pricing-desc">Sell products or services directly from your site with a custom branded checkout — no generic third-party pages.</div>
-            <ul class="pricing-features">
-              <li><strong>PayPal</strong> checkout integration</li>
-              <li><strong>Product catalog</strong> management</li>
-              <li><strong>Secure checkout</strong> experience</li>
-              <li><strong>Order notifications</strong> to you</li>
-            </ul>
-            <a class="btn btn-secondary" href="quote.html" style="margin-top: auto; justify-content: center;">Add to My Site</a>
-          </article>
-
-          <!-- BOOKING -->
-          <article class="glass pricing-card">
-            <div style="font-size: 1.6rem; margin-bottom: 14px;">📅</div>
-            <div class="pricing-tier">Booking System</div>
-            <div class="pricing-price" style="font-size: 2rem;"><sup>$</sup>500</div>
-            <div class="pricing-note">setup · then $50/mo</div>
-            <div class="pricing-desc">Let customers book appointments online 24/7. No more phone tag — your calendar fills itself.</div>
-            <ul class="pricing-features">
-              <li><strong>Online scheduling</strong> form</li>
+          <!-- GROWTH+ -->
+          <article class="glass tier-card">
+            <div class="tier-label">Tier 04</div>
+            <div class="tier-name">Growth+</div>
+            <div class="tier-build">Build fee <span>$1,400</span></div>
+            <div class="tier-divider"></div>
+            <div class="tier-price" style="color: var(--accent-purple);"><sup>$</sup>125</div>
+            <div class="tier-price-note">per month · hosting + AI + booking</div>
+            <ul class="tier-features">
+              <li><strong>Everything</strong> in Growth</li>
+              <li><strong>Booking system</strong> — schedule 24/7</li>
               <li><strong>Email confirmations</strong> auto-sent</li>
-              <li><strong>Calendar sync</strong> ready</li>
-              <li><strong>Custom availability</strong> hours</li>
-            </ul>
-            <a class="btn btn-secondary" href="quote.html" style="margin-top: auto; justify-content: center;">Add to My Site</a>
-          </article>
-
-          <!-- BLOG -->
-          <article class="glass pricing-card">
-            <div style="font-size: 1.6rem; margin-bottom: 14px;">✍️</div>
-            <div class="pricing-tier">Blog Section</div>
-            <div class="pricing-price" style="font-size: 2rem;"><sup>$</sup>300</div>
-            <div class="pricing-note">setup · then $30/mo</div>
-            <div class="pricing-desc">An SEO-optimized blog that helps you rank higher on Google over time. More content = more search visibility.</div>
-            <ul class="pricing-features">
-              <li><strong>SEO-structured</strong> posts</li>
-              <li><strong>Local keyword</strong> targeting</li>
-              <li><strong>Easy to update</strong> content</li>
-              <li><strong>Google-crawlable</strong> structure</li>
-            </ul>
-            <a class="btn btn-secondary" href="quote.html" style="margin-top: auto; justify-content: center;">Add to My Site</a>
-          </article>
-
-          <!-- GOOGLE ADS -->
-          <article class="glass pricing-card">
-            <div style="font-size: 1.6rem; margin-bottom: 14px;">📢</div>
-            <div class="pricing-tier">Google Ads</div>
-            <div class="pricing-price" style="font-size: 2rem;"><sup>$</sup>200</div>
-            <div class="pricing-note">setup · then $100/mo management</div>
-            <div class="pricing-desc">Get your business in front of people actively searching for your service right now — not just organically.</div>
-            <ul class="pricing-features">
-              <li><strong>Campaign setup</strong> and targeting</li>
-              <li><strong>Local area</strong> ad targeting</li>
-              <li><strong>Monthly reporting</strong> to you</li>
-              <li><strong>Ad budget</strong> you control</li>
-            </ul>
-            <a class="btn btn-secondary" href="quote.html" style="margin-top: auto; justify-content: center;">Add to My Site</a>
-          </article>
-
-          <!-- SEO BOOSTER -->
-          <article class="glass pricing-card">
-            <div style="font-size: 1.6rem; margin-bottom: 14px;">🚀</div>
-            <div class="pricing-tier">SEO Booster</div>
-            <div class="pricing-price" style="font-size: 2rem;"><sup>$</sup>200</div>
-            <div class="pricing-note">one-time</div>
-            <div class="pricing-desc">Advanced local SEO setup including Google Business Profile, keyword targeting, and map pack optimization.</div>
-            <ul class="pricing-features">
-              <li><strong>Google Business</strong> Profile setup</li>
-              <li><strong>Map pack</strong> optimization</li>
-              <li><strong>Keyword research</strong> for your area</li>
-              <li><strong>Citation building</strong> across directories</li>
-            </ul>
-            <a class="btn btn-secondary" href="quote.html" style="margin-top: auto; justify-content: center;">Add to My Site</a>
-          </article>
-
-          <!-- LOGO -->
-          <article class="glass pricing-card">
-            <div style="font-size: 1.6rem; margin-bottom: 14px;">🎨</div>
-            <div class="pricing-tier">Logo & Branding</div>
-            <div class="pricing-price" style="font-size: 2rem;"><sup>$</sup>150</div>
-            <div class="pricing-note">one-time</div>
-            <div class="pricing-desc">A custom logo, color palette, and font set that makes your business look like the obvious professional choice.</div>
-            <ul class="pricing-features">
-              <li><strong>Custom logo</strong> design</li>
-              <li><strong>Color palette</strong> for your brand</li>
-              <li><strong>Font selection</strong> and style guide</li>
-              <li><strong>All file formats</strong> delivered</li>
-            </ul>
-            <a class="btn btn-secondary" href="quote.html" style="margin-top: auto; justify-content: center;">Add to My Site</a>
-          </article>
-
-          <!-- SOCIAL MEDIA KIT -->
-          <article class="glass pricing-card">
-            <div style="font-size: 1.6rem; margin-bottom: 14px;">📱</div>
-            <div class="pricing-tier">Social Media Kit</div>
-            <div class="pricing-price" style="font-size: 2rem;"><sup>$</sup>150</div>
-            <div class="pricing-note">setup · then $50/mo</div>
-            <div class="pricing-desc">Branded post templates, profile covers, and bio setup so your social pages match your site and look professional.</div>
-            <ul class="pricing-features">
-              <li><strong>Branded post</strong> templates</li>
+              <li><strong>Social media kit</strong> included</li>
+              <li><strong>Branded</strong> post templates</li>
               <li><strong>Profile cover</strong> photos</li>
-              <li><strong>Bio optimization</strong> across platforms</li>
-              <li><strong>Monthly content</strong> templates</li>
             </ul>
-            <a class="btn btn-secondary" href="quote.html" style="margin-top: auto; justify-content: center;">Add to My Site</a>
+            <a class="btn btn-secondary" href="quote.html" style="margin-top: auto; justify-content: center;">Get Started →</a>
           </article>
 
-          <!-- MONTHLY UPDATES -->
-          <article class="glass pricing-card">
-            <div style="font-size: 1.6rem; margin-bottom: 14px;">🔄</div>
-            <div class="pricing-tier">Monthly Updates</div>
-            <div class="pricing-price" style="font-size: 2rem;"><sup>$</sup>50</div>
-            <div class="pricing-note">per month</div>
-            <div class="pricing-desc">Need to change your hours, add a new service, or update photos? We handle all content changes for you every month.</div>
-            <ul class="pricing-features">
-              <li><strong>Unlimited</strong> text changes</li>
-              <li><strong>Photo</strong> updates</li>
-              <li><strong>New service</strong> additions</li>
-              <li><strong>Priority</strong> turnaround</li>
+          <!-- PRO -->
+          <article class="glass tier-card">
+            <div class="tier-label">Tier 05</div>
+            <div class="tier-name">Pro</div>
+            <div class="tier-build">Build fee <span>$1,500</span></div>
+            <div class="tier-divider"></div>
+            <div class="tier-price" style="color: var(--accent-purple);"><sup>$</sup>150</div>
+            <div class="tier-price-note">per month · everything</div>
+            <ul class="tier-features">
+              <li><strong>Everything</strong> in Growth+</li>
+              <li><strong>Online store</strong> — sell anything</li>
+              <li><strong>Google Ads</strong> setup + management</li>
+              <li><strong>Monthly ad</strong> reporting</li>
+              <li><strong>Priority</strong> support</li>
+              <li><strong>First in line</strong> for updates</li>
             </ul>
-            <a class="btn btn-secondary" href="quote.html" style="margin-top: auto; justify-content: center;">Add to My Site</a>
+            <a class="btn btn-secondary" href="quote.html" style="margin-top: auto; justify-content: center;">Get Started →</a>
           </article>
 
         </div>
 
-        <!-- BUNDLE -->
-        <div class="glass" style="padding: 32px 36px; background: rgba(120,200,255,0.03); border-color: rgba(120,200,255,0.18);">
-          <div style="display: grid; grid-template-columns: 1fr auto; gap: 24px; align-items: center;">
-            <div>
-              <div class="popular-badge" style="background: rgba(120,200,255,0.1); border-color: rgba(120,200,255,0.25); color: var(--accent-blue); margin-bottom: 12px;">⚡ Best Value Bundle</div>
-              <h3 style="font-family: 'Syne', sans-serif; font-size: 1.4rem; font-weight: 800; margin-bottom: 8px;">AI Chatbot + Online Store + Booking System</h3>
-              <p style="color: var(--muted); font-size: 0.88rem; line-height: 1.7; max-width: 55ch;">Get all three together and save $50/month vs buying separately. The ultimate toolkit for a local business that wants to run on autopilot.</p>
-              <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px;">
-                <span style="padding: 5px 12px; border-radius: 999px; border: 1px solid rgba(120,200,255,0.2); font-size: 0.78rem; color: var(--muted);">🤖 AI Chatbot</span>
-                <span style="padding: 5px 12px; border-radius: 999px; border: 1px solid rgba(120,200,255,0.2); font-size: 0.78rem; color: var(--muted);">🛒 Online Store</span>
-                <span style="padding: 5px 12px; border-radius: 999px; border: 1px solid rgba(120,200,255,0.2); font-size: 0.78rem; color: var(--muted);">📅 Booking System</span>
-                <span style="padding: 5px 12px; border-radius: 999px; border: 1px solid rgba(50,255,200,0.2); font-size: 0.78rem; color: var(--accent-teal);">Save $50/mo</span>
-              </div>
-            </div>
-            <div style="text-align: center; min-width: 180px;">
-              <div style="font-family: 'Syne', sans-serif; font-size: 2.4rem; font-weight: 800; color: var(--accent-blue);">$1,500</div>
-              <div style="font-size: 0.82rem; color: var(--muted); margin-bottom: 4px;">setup · then</div>
-              <div style="font-family: 'Syne', sans-serif; font-size: 1.4rem; font-weight: 700; color: var(--accent-teal); margin-bottom: 18px;">$300/mo</div>
-              <a class="btn btn-primary" href="quote.html" style="justify-content: center; white-space: nowrap;">Get This Bundle →</a>
-            </div>
+        <!-- COMPARISON NOTE -->
+        <div class="glass" style="padding: 28px 36px; margin-top: 20px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px;">
+          <div>
+            <h3 style="font-family: 'Syne', sans-serif; font-size: 1.15rem; font-weight: 800; margin-bottom: 6px;">Not sure which tier is right for you?</h3>
+            <p style="color: var(--muted); font-size: 0.88rem; max-width: 55ch; line-height: 1.7;">Every client starts with a free quote — I'll tell you exactly which plan fits your business and why. No pushy sales, just honest advice.</p>
+          </div>
+          <div style="display: flex; flex-wrap: wrap; gap: 8px; align-items: center;">
+            <span style="padding: 6px 14px; border-radius: 999px; border: 1px solid rgba(50,255,200,0.2); background: rgba(50,255,200,0.06); font-size: 0.78rem; color: var(--accent-teal);">✓ No contracts</span>
+            <span style="padding: 6px 14px; border-radius: 999px; border: 1px solid rgba(50,255,200,0.2); background: rgba(50,255,200,0.06); font-size: 0.78rem; color: var(--accent-teal);">✓ Upgrade anytime</span>
+            <span style="padding: 6px 14px; border-radius: 999px; border: 1px solid rgba(50,255,200,0.2); background: rgba(50,255,200,0.06); font-size: 0.78rem; color: var(--accent-teal);">✓ 50% deposit to start</span>
+            <a class="btn btn-primary" href="quote.html" style="justify-content: center; white-space: nowrap; margin-left: 8px;">Get a Free Quote →</a>
           </div>
         </div>
 
